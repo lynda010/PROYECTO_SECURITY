@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\tipo_curso;
 use Illuminate\Http\Request;
 
+
 class tipo_cursoController extends Controller
 {
     /**
@@ -44,7 +45,7 @@ class tipo_cursoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -52,7 +53,8 @@ class tipo_cursoController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tipo_curso = tipo_curso::find($id);
+        return view('tipo_cursos.edit', compact('tipo_curso'));
     }
 
     /**
@@ -60,7 +62,9 @@ class tipo_cursoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        tipo_curso::find($id)->update($request->validate());
+        return redirect()->route('tipo_cursos.index')
+                        ->with('success', 'Tipo de curso actualizado exitosamente.');
     }
 
     /**
@@ -68,6 +72,9 @@ class tipo_cursoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tipo_curso = tipo_curso::find($id);
+        $tipo_curso->delete();
+        return redirect()->route('tipo_cursos.index')
+                        ->with('success', 'Tipo de curso eliminado exitosamente.');
     }
 }
