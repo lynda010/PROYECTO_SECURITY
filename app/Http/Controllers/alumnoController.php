@@ -13,7 +13,7 @@ class alumnoController extends Controller
     public function index()
     {
         $alumnos = alumno::all();
-        return view('alumnos.index', compact('alumnos'));
+        return view('alumno.index', compact('alumnos'));
     }
 
     /**
@@ -21,7 +21,7 @@ class alumnoController extends Controller
      */
     public function create()
     {
-        return view('alumnos.create');
+        return view('alumno.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class alumnoController extends Controller
     public function edit(string $id)
     {
         $alumno = alumno::find($id);
-        return view('alumnos.edit', compact('alumno'));
+        return view('alumno.edit', compact('alumno'));
     }
 
     /**

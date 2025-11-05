@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Certificado;
+use App\Models\certificado;
 use Illuminate\Http\Request;
 
 class certificadoController extends Controller
@@ -12,8 +12,8 @@ class certificadoController extends Controller
      */
     public function index()
     {
-        $certificados = Certificado::all();
-        return view('certificados.index', compact('certificados'));
+        $certificados = certificado::all();
+        return view('certificado.index', compact('certificados'));
     }
 
     /**
@@ -21,7 +21,7 @@ class certificadoController extends Controller
      */
     public function create()
     {
-        return view('certificados.create');
+        return view('certificado.create');
     }
 
     /**

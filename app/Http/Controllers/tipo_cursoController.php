@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tipo_curso;
+use App\Models\Tipo_Curso;
 use Illuminate\Http\Request;
 
-
-class tipo_cursoController extends Controller
+class Tipo_CursoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tipos_cursos = tipo_curso::all();
-        return view('tipo_cursos.index', compact('tipos_cursos'));
+        $tiposCurso = Tipo_Curso::all();
+        return view('tipo_cursos.index', compact('tiposCurso'));
     }
 
     /**
@@ -31,29 +30,24 @@ class tipo_cursoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tipo_curso' => 'required|string|max:255',
+            'nombre_tipo' => 'required|string|max:255',
         ]);
 
-        tipo_curso::create($request->all());
+        Tipo_Curso::create([
+            'nombre_tipo' => $request->nombre_tipo,
+        ]);
 
         return redirect()->route('tipo_cursos.index')
-                        ->with('success', 'Tipo de curso creado exitosamente.');
+            ->with('success', 'Tipo de curso creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $tipo_curso = tipo_curso::find($id);
+        $tipo_curso = Tipo_Curso::findOrFail($id);
         return view('tipo_cursos.edit', compact('tipo_curso'));
     }
 
@@ -62,19 +56,29 @@ class tipo_cursoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        tipo_curso::find($id)->update($request->validate());
+        $request->validate([
+            'nombre_tipo' => 'required|string|max:255',
+        ]);
+
+        $tipo_curso = Tipo_Curso::findOrFail($id);
+        $tipo_curso->update([
+            'nombre_tipo' => $request->nombre_tipo,
+        ]);
+
         return redirect()->route('tipo_cursos.index')
-                        ->with('success', 'Tipo de curso actualizado exitosamente.');
+            ->with('success', 'Tipo de curso actualizado exitosamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $tipo_curso = tipo_curso::find($id);
+        $tipo_curso = Tipo_Curso::findOrFail($id);
         $tipo_curso->delete();
+
         return redirect()->route('tipo_cursos.index')
-                        ->with('success', 'Tipo de curso eliminado exitosamente.');
+            ->with('success', 'Tipo de curso eliminado exitosamente.');
     }
 }

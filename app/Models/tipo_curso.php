@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Models;
-use App\Models\curso;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tipo_curso extends Model
+class Tipo_Curso extends Model
 {
-    protected $fillable =['tipo_curso'];
+    protected $table = 'tipo_curso'; // usa minúsculas, como en la migración
+
+    protected $fillable = ['nombre_tipo']; // <-- CORRECTO
 
     public function cursos()
     {
-        return $this->hasMany(curso::class, 'tipo_curso_id');
-    } 
+        return $this->hasMany(Curso::class, 'tipo_curso_id');
+    }
 }
