@@ -5,9 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class certificado extends Model
+class Certificado extends Model
 {
+    use HasFactory;
+
     
+    protected $table = 'certificado';
+
+    
+    protected $primaryKey = 'codigo_interno';
+    public $incrementing = false; // porque es string, no autoincremental
+    protected $keyType = 'string';
+
+    // 👇 Campos permitidos para asignación masiva
     protected $fillable = [
         'codigo_interno',
         'codigo_qr',
@@ -17,9 +27,9 @@ class certificado extends Model
         'alumno_id'
     ];
 
-    // Un certificado pertenece a un alumno
+    // 👇 Relación: un certificado pertenece a un alumno
     public function alumno()
     {
-        return $this->belongsTo(alumno::class, 'alumno_id');
+        return $this->belongsTo(Alumno::class, 'alumno_id');
     }
 }

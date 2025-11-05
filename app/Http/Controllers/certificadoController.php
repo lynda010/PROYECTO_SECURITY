@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\certificado;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,11 @@ class certificadoController extends Controller
      */
     public function create()
     {
-        return view('certificado.create');
+        // Trae todos los alumnos registrados
+        $alumnos = \App\Models\alumno::all();
+
+        // Envía la variable $alumnos a la vista
+        return view('certificado.create', compact('alumnos'));
     }
 
     /**
@@ -55,21 +60,32 @@ class certificadoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($codigo_interno)
     {
-        $certificado = Certificado::find($id);
-        return view('certificados.edit', compact('certificado'));
+        // Buscar el certificado por su código interno
+        $certificado = \App\Models\Certificado::findOrFail($codigo_interno);
+
+        // Obtener todos los alumnos
+        $alumnos = \App\Models\Alumno::all();
+
+        // Enviar los datos a la vista
+        return view('certificado.edit', compact('certificado', 'alumnos'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $codigo_interno)
     {
-        Certificado::find($id)->update($request->validate());
-        return redirect()->route('certificados.index')
-                        ->with('success', 'Certificado actualizado exitosamente.');
+        $certificado = Certificado::findOrFail($codigo_interno);
+
+        $certificado->update($request->all());
+
+        return redirect()->route('certificados.index')->with('success', 'Certificado actualizado correctamente');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -78,6 +94,6 @@ class certificadoController extends Controller
     {
         Certificado::find($id)->delete();
         return redirect()->route('certificados.index')
-                        ->with('success', 'Certificado eliminado exitosamente.');
+            ->with('success', 'Certificado eliminado exitosamente.');
     }
 }

@@ -31,17 +31,18 @@ Route::post('/tipo_cursos/destroy/{id}', [Tipo_CursoController::class, 'destroy'
 Route::get('/alumnos', [alumnoController::class, 'index'])->name('alumnos.index');
 Route::get('/alumnos/create', [alumnoController::class, 'create'])->name('alumnos.create');
 Route::post('/alumnos/store', [alumnoController::class, 'store'])->name('alumnos.store');
-Route::get('/alumnos/edit/{id}', [alumnoController::class, 'show'])->name('alumnos.edit');
+Route::get('/alumnos/edit/{id}', [alumnoController::class, 'edit'])->name('alumnos.edit');
 Route::post('/alumnos/update/{id}', [alumnoController::class, 'update'])->name('alumnos.update');
 Route::post('/alumnos/destroy/{id}', [alumnoController::class, 'destroy'])->name('alumnos.destroy');
 
 //rutas certificados
-Route::get('/certificados', [certificadoController::class, 'index'])->name('certificados.index');
-Route::get('/certificados/create', [certificadoController::class, 'create'])->name('certificados.create');
-Route::post('/certificados/store', [certificadoController::class, 'store'])->name('certificados.store');
-Route::get('/certificados/edit/{id}', [certificadoController::class, 'show'])->name('certificados.edit');
-Route::post('/certificados/update/{id}', [certificadoController::class, 'update'])->name('certificados.update');
-Route::post('/certificados/destroy/{id}', [certificadoController::class, 'destroy'])->name('certificados.destroy');
+Route::get('/certificados', [CertificadoController::class, 'index'])->name('certificados.index');
+Route::get('/certificados/create', [CertificadoController::class, 'create'])->name('certificados.create');
+Route::post('/certificados/store', [CertificadoController::class, 'store'])->name('certificados.store');
+Route::get('/certificados/edit/{codigo_interno}', [CertificadoController::class, 'edit'])->name('certificados.edit');
+Route::post('/certificados/update/{codigo_interno}', [CertificadoController::class, 'update'])->name('certificados.update');
+Route::post('/certificados/destroy/{codigo_interno}', [CertificadoController::class, 'destroy'])->name('certificados.destroy');
+
 
 //rutas cursos
 Route::get('/cursos', [cursoController::class, 'index'])->name('cursos.index');

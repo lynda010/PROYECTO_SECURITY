@@ -7,7 +7,7 @@
     <a href="{{ route('certificados.create') }}" class="btn btn-primary mb-3">Nuevo Certificado</a>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <table class="table table-bordered table-striped">
@@ -19,11 +19,11 @@
                 <th>Fecha Vencimiento</th>
                 <th>Registro Supervigilancia</th>
                 <th>Alumno</th>
-                <th>Acciones</th>
+
             </tr>
         </thead>
         <tbody>
-        @foreach ($certificados as $certificado)
+            @foreach ($certificados as $certificado)
             <tr>
                 <td>{{ $certificado->codigo_interno }}</td>
                 <td>{{ $certificado->codigo_qr }}</td>
@@ -39,7 +39,7 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
 </div>

@@ -13,7 +13,7 @@ class alumnoController extends Controller
     public function index()
     {
         $alumnos = alumno::all();
-        return view('alumno.index', compact('alumnos'));
+        return view('alumnos.index', compact('alumnos'));
     }
 
     /**
@@ -21,7 +21,7 @@ class alumnoController extends Controller
      */
     public function create()
     {
-        return view('alumno.create');
+        return view('alumnos.create');
     }
 
     /**
@@ -49,34 +49,51 @@ class alumnoController extends Controller
         alumno::create($request->all());
 
         return redirect()->route('alumnos.index')
-                        ->with('success', 'Alumno creado exitosamente.');
+            ->with('success', 'Alumno creado exitosamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $alumno = alumno::find($id);
-        return view('alumno.edit', compact('alumno'));
+        $alumno = alumno::findorFail($id);
+        return view('alumnos.edit', compact('alumno'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        alumno::find($id)->update($request->validate());
+        // ✅ Primero validamos los datos correctamente
+        $validated = $request->validate([
+            'tipo_documento' => 'required|string|max:50',
+            'numero_documento' => 'required|string|max:50',
+            'nombres' => 'required|string|max:100',
+            'apellidos' => 'required|string|max:100',
+            'fecha_nacimiento' => 'required|date',
+            'genero' => 'required|string|max:20',
+            'eps' => 'required|string|max:100',
+            'correo_electronico' => 'required|email|max:150',
+            'telefono' => 'required|string|max:20',
+            'direccion' => 'required|string|max:150',
+            'usuario_plataforma' => 'required|string|max:50',
+            'contrasena_plataforma' => 'required|string|max:100',
+            'situacion_militar_definida' => 'required|boolean',
+        ]);
+
+        // ✅ Luego actualizamos el registro
+        Alumno::findOrFail($id)->update($validated);
+
+        // ✅ Finalmente redirigimos con mensaje de éxito
         return redirect()->route('alumnos.index')
-                        ->with('success', 'Alumno actualizado exitosamente.');
+            ->with('success', 'Alumno actualizado exitosamente.');
     }
 
     /**
@@ -87,6 +104,6 @@ class alumnoController extends Controller
         $alumno = alumno::find($id);
         $alumno->delete();
         return redirect()->route('alumnos.index')
-                        ->with('success', 'Alumno eliminado exitosamente.');
+            ->with('success', 'Alumno eliminado exitosamente.');
     }
 }

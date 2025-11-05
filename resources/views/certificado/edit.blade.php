@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Editar Certificado</h1>
 
+    @if(isset($certificado))
     <form action="{{ route('certificados.update', $certificado->codigo_interno) }}" method="POST">
         @csrf
+
 
         <div class="mb-3">
             <label for="codigo_interno" class="form-label">Código Interno</label>
@@ -36,15 +38,19 @@
             <label for="alumno_id" class="form-label">Alumno</label>
             <select name="alumno_id" id="alumno_id" class="form-select" required>
                 @foreach($alumnos as $alumno)
-                    <option value="{{ $alumno->id }}" {{ $certificado->alumno_id == $alumno->id ? 'selected' : '' }}>
-                        {{ $alumno->nombres }} {{ $alumno->apellidos }}
-                    </option>
+                <option value="{{ $alumno->id }}" {{ $certificado->alumno_id == $alumno->id ? 'selected' : '' }}>
+                    {{ $alumno->nombres }} {{ $alumno->apellidos }}
+                </option>
                 @endforeach
+
             </select>
         </div>
 
         <button type="submit" class="btn btn-dark px-4">💾 Actualizar</button>
         <a href="{{ route('certificados.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    @else
+    <div class="alert alert-danger mt-3">❌ No se encontró el certificado.</div>
+    @endif
 </div>
 @endsection
