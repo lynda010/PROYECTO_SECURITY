@@ -80,5 +80,8 @@
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
 </div>
 @endsection

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\curso;
+use App\Models\curso;         
+use App\Models\Tipo_Curso;    
 use Illuminate\Http\Request;
 
 class cursoController extends Controller
@@ -13,7 +14,7 @@ class cursoController extends Controller
     public function index()
     {
         $cursos = curso::all();
-        return view('curso.index', compact('cursos'));
+        return view('cursos.index', compact('cursos'));
     }
 
     /**
@@ -21,7 +22,11 @@ class cursoController extends Controller
      */
     public function create()
     {
-        return view('curso.create');
+        
+        $tiposCurso = Tipo_Curso::all();
+
+        
+        return view('cursos.create', compact('tiposCurso'));
     }
 
     /**
@@ -29,15 +34,18 @@ class cursoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        
+        $data = $request->validate([
             'nombre_curso' => 'required|string|max:100',
             'valor' => 'required|numeric',
             'duracion_horas' => 'required|integer',
             'duracion_dias_presencial' => 'required|integer',
-            
+            'tipo_curso_id' => 'required|exists:tipo_curso,id',
+
         ]);
 
-        curso::create($request->all());
+        
+        curso::create($data);
 
         return redirect()->route('cursos.index')
             ->with('success', 'Curso creado exitosamente.');
@@ -56,8 +64,9 @@ class cursoController extends Controller
      */
     public function edit(string $id)
     {
-        $curso = curso::find($id);
-        return view('cursos.edit', compact('curso'));
+        $curso = curso::findOrFail($id);
+        $tiposCurso = Tipo_Curso::all(); 
+        return view('cursos.edit', compact('curso', 'tiposCurso'));
     }
 
     /**
@@ -65,7 +74,19 @@ class cursoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        Curso::find($id)->update($request->validate());
+        $curso = curso::findOrFail($id);
+
+        $data = $request->validate([
+            'nombre_curso' => 'required|string|max:100',
+            'valor' => 'required|numeric',
+            'duracion_horas' => 'required|integer',
+            'duracion_dias_presencial' => 'required|integer',
+            'tipo_curso_id' => 'required|exists:tipo_curso,id',
+
+        ]);
+
+        $curso->update($data);
+
         return redirect()->route('cursos.index')
             ->with('success', 'Curso actualizado exitosamente.');
     }
@@ -75,6 +96,10 @@ class cursoController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        $curso = curso::findOrFail($id);
+        $curso->delete();
+
+        return redirect()->route('cursos.index')
+            ->with('success', 'Curso eliminado correctamente.');
     }
 }

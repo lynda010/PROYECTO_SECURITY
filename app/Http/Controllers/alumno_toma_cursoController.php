@@ -12,8 +12,8 @@ class alumno_toma_cursoController extends Controller
      */
     public function index()
     {
-        $alumno_toma_cursos = alumno_toma_curso::all();
-        return view('alumno_toma_cursos.index', compact('alumno_toma_cursos'));
+        $registros = alumno_toma_curso::all();
+        return view('alumno_toma_cursos.index', compact('registros'));
     }
 
     /**

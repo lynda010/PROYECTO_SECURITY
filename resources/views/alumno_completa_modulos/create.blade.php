@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Registrar Finalización de Módulo por Alumno</h1>
 
@@ -11,10 +11,20 @@
             <label for="alumno_id" class="form-label">Alumno</label>
             <select name="alumno_id" id="alumno_id" class="form-select" required>
                 <option value="">Seleccione un alumno</option>
-                @foreach ($alumnos as $alumno)
-                    <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
-                @endforeach
+
+                @isset($alumnos)
+                @forelse($alumnos as $alumno)
+                <option value="{{ $alumno->id }}">
+                    {{ $alumno->nombres }} {{ $alumno->apellidos }}
+                </option>
+                @empty
+                <option value="">No hay alumnos registrados</option>
+                @endforelse
+                @else
+                <option value="">Error: no se cargaron los alumnos</option>
+                @endisset
             </select>
+
         </div>
 
         <div class="mb-3">
@@ -22,7 +32,7 @@
             <select name="modulo_id" id="modulo_id" class="form-select" required>
                 <option value="">Seleccione un módulo</option>
                 @foreach ($modulos as $modulo)
-                    <option value="{{ $modulo->id }}">{{ $modulo->nombre_modulo }} ({{ $modulo->curso->nombre_curso }})</option>
+                <option value="{{ $modulo->id }}">{{ $modulo->nombre_modulo }} ({{ $modulo->curso->nombre_curso }})</option>
                 @endforeach
             </select>
         </div>
@@ -45,5 +55,8 @@
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('alumno_completa_modulos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
 </div>
 @endsection

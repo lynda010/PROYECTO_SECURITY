@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class modulo extends Model
+class Modulo extends Model
 {
-    protected $fillable = [
-        'nombre_modulo',
-        'curso_id'
-    ];
+    protected $table = 'modulos';
+
+    protected $fillable = ['nombre_modulo', 'curso_id'];
+
     public function curso()
     {
-        return $this->belongsTo(curso::class);
+        return $this->belongsTo(Curso::class, 'curso_id');
     }
 }

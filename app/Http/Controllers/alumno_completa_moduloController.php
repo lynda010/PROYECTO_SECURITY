@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\alumno_completa_modulo;
+use App\Models\modulo;
 use Illuminate\Http\Request;
 
 class alumno_completa_moduloController extends Controller
@@ -12,17 +14,20 @@ class alumno_completa_moduloController extends Controller
      */
     public function index()
     {
-        $alumno_completa_modulos = alumno_completa_modulo::all();
-        return view('alumno_completa_modulos.index', compact('alumno_completa_modulos'));
+        $registros = alumno_completa_modulo::all();
+        return view('alumno_completa_modulos.index', compact('registros'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('alumno_completa_modulos.create');
-    }
+{
+    $alumnos = Alumno::all();
+    $modulos = modulo::with('curso')->get();
+
+    return view('alumno_completa_modulos.create', compact('alumnos', 'modulos'));
+}
 
     /**
      * Store a newly created resource in storage.

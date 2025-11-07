@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\curso;
 use App\Models\modulo;
+use App\Models\Tipo_Curso;
 use Illuminate\Http\Request;
 
 class moduloController extends Controller
@@ -12,33 +14,45 @@ class moduloController extends Controller
      */
     public function index()
     {
-        $modulos = modulo::all();
+        $modulos = Modulo::with('curso')->get();
         return view('modulos.index', compact('modulos'));
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('modulos.create');
+        // Trae todos los cursos disponibles
+        $cursos = curso::all();
+
+        // Trae todos los tipos de curso
+        $tiposCurso = Tipo_Curso::all();
+
+        // Envía ambas variables a la vista
+        return view('modulos.create', compact('cursos'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
+{
+    
+        /*$data = $request->validate([
             'nombre_modulo' => 'required|string|max:100',
-            'curso_id' => 'required|integer',
-        ]);
+            'curso_id' => 'required|exists:cursos,id',
+        ]);*/
 
-        modulo::create($request->all());
+        
 
-        return redirect()->route('modulos.index')
-            ->with('success', 'Módulo creado exitosamente.');
-    }
+    Modulo::create($request->all());
+
+    return redirect()->route('modulos.index')->with('success', 'Módulo registrado correctamente.');
+}
+
+
 
     /**
      * Display the specified resource.
@@ -53,7 +67,7 @@ class moduloController extends Controller
      */
     public function edit(string $id)
     {
-        $modulo= modulo::find($id);
+        $modulo = modulo::find($id);
         return view('modulos.edit', compact('modulo'));
     }
 
@@ -70,8 +84,5 @@ class moduloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        
-    }
+    public function destroy(string $id) {}
 }

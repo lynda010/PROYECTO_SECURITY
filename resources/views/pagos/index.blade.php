@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Lista de Pagos</h1>
 
     <a href="{{ route('pagos.create') }}" class="btn btn-primary mb-3">Nuevo Pago</a>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <table class="table table-bordered table-striped">
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach ($pagos as $pago)
+            @foreach ($pagos as $pago)
             <tr>
                 <td>{{ $pago->id }}</td>
                 <td>{{ $pago->alumno->nombres }} {{ $pago->alumno->apellidos }}</td>
@@ -41,8 +41,11 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
 </div>
 @endsection

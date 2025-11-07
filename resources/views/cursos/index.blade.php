@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Lista de Cursos</h1>
 
     <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Nuevo Curso</a>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <table class="table table-bordered table-striped">
@@ -19,11 +19,11 @@
                 <th>Duración (horas)</th>
                 <th>Días Presenciales</th>
                 <th>Tipo de Curso</th>
-                <th>Acciones</th>
+
             </tr>
         </thead>
         <tbody>
-        @foreach ($cursos as $curso)
+            @foreach ($cursos as $curso)
             <tr>
                 <td>{{ $curso->id }}</td>
                 <td>{{ $curso->nombre_curso }}</td>
@@ -39,8 +39,11 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Siguiente
+    </a>
 </div>
 @endsection

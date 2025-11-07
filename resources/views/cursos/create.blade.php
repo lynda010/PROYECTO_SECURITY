@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Registrar Nuevo Curso</h1>
 
@@ -29,16 +29,16 @@
 
         <div class="mb-3">
             <label for="tipo_curso_id" class="form-label">Tipo de Curso</label>
-            <select name="tipo_curso_id" id="tipo_curso_id" class="form-select" required>
-                <option value="">Seleccione un tipo</option>
-                @foreach ($tiposCurso as $tipo)
-                    <option value="{{ $tipo->id }}">{{ $tipo->nombre_tipo }}</option>
-                @endforeach
-            </select>
+            <input type="input" name="tipo_curso_id" id="tipo_curso_id" class="form-control" required>
         </div>
+
 
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('cursos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
+    
 </div>
 @endsection

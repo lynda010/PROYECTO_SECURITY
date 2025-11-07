@@ -19,7 +19,7 @@
                 <th>Correo</th>
                 <th>Teléfono</th>
                 <th>Género</th>
-                <th>Acciones</th>
+
             </tr>
         </thead>
         <tbody>
@@ -43,5 +43,8 @@
             @endforeach
         </tbody>
     </table>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
 </div>
 @endsection

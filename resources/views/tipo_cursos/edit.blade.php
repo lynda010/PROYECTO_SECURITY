@@ -4,11 +4,11 @@
 Editar Tipo de Curso
 @endsection
 
-@section('titleContent')
+@section('titlecontent')
 <h1>Editar Tipo de Curso</h1>
 @endsection
 
-@section('Content')
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col">

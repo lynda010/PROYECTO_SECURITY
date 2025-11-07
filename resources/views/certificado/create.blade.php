@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('Content')
+@section('content')
 <div class="container">
     <h1>Registrar Nuevo Certificado</h1>
 
@@ -48,5 +48,8 @@
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('certificados.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
+    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+        Volver
+    </a>
 </div>
 @endsection

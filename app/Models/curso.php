@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class curso extends Model
 {
+
+    protected $table = 'cursos';
+
     protected $fillable = [
         'nombre_curso',
         'valor',
         'duracion_horas',
-        'duracion_dias_presencial'
+        'duracion_dias_presencial',
+        'tipo_curso_id'
     ];
 
     // Un curso pertenece a un tipo de curso
