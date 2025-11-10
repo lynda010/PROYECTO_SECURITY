@@ -14,37 +14,11 @@
 
         <div class="mb-3">
             <label for="curso_id" class="form-label">Curso Asociado</label>
-            <select name="curso_id" id="curso_id" class="form-select" required>
-                <option value="">Seleccione un curso</option>
-
-
-                
-
-                <optgroup label="Fundamentación">
-                    <option value="1">Fundamentación Vigilancia</option>
-                    <option value="Fundamentacion escolta">Fundamentación Escolta</option>
-                    <option value="Fundamentacion medios tecnológicos">Fundamentación Medios Tecnológicos</option>
-                    <option value="Fundamentacion manejador canino">Fundamentación Manejador Canino</option>
-                </optgroup>
-
-                <optgroup label="Reentrenamiento">
-                    <option value="Reentrenamiento vigilancia">Reentrenamiento Vigilancia</option>
-                    <option value="Reentrenamiento escolta">Reentrenamiento Escolta</option>
-                    <option value="Reentrenamiento medios tecnológicos">Reentrenamiento Medios Tecnológicos</option>
-                    <option value="Reentrenamiento manejador canino">Reentrenamiento Manejador Canino</option>
-                </optgroup>
-
-                <optgroup label="Seminarios">
-                    <option value="Control acceso">Control Acceso</option>
-                    <option value="Atención al cliente">Atención al Cliente</option>
-                    <option value="Primeros auxilios">Primeros Auxilios</option>
-                    <option value="Manejo seguro armas de fuego">Manejo Seguro de Armas de Fuego</option>
-                    <option value="Ejercicio práctico de tiro polígono">Ejercicio Práctico de Tiro en Polígono</option>
-                    <option value="Defensa personal">Defensa Personal</option>
-                    <option value="Nueva código policía">Nuevo Código de Policía</option>
-                    <option value="Manejo garret">Manejo Garret</option>
-                    <option value="Análisis de riesgos">Análisis de Riesgos</option>
-                </optgroup>
+            <select name="curso_id" id="curso_id" class="form-select">
+                @foreach($cursos  as $curso)
+                    <option value="{{$curso->id}}">{{$curso->nombre_curso}}</option>
+                @endforeach
+          
             </select>
         </div>
 

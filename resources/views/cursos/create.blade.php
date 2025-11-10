@@ -27,18 +27,26 @@
             <input type="number" name="duracion_dias_presencial" id="duracion_dias_presencial" class="form-control" required>
         </div>
 
-        <div class="mb-3">
-            <label for="tipo_curso_id" class="form-label">Tipo de Curso</label>
-            <input type="input" name="tipo_curso_id" id="tipo_curso_id" class="form-control" required>
-        </div>
+        
+
+        <div class="mb-3"> 
+            <label for="tipo_curso_id" class="form-label">Tipo de Curso</label> 
+        <select name="tipo_curso_id" id="tipo_curso_id" class="form-select">
+            @foreach($tiposCurso as $item)
+            <option value="{{$item->id}}">{{$item->nombre_tipo}}</option>
+            @endforeach
 
 
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ route('cursos.index') }}" class="btn btn-secondary">Cancelar</a>
-    </form>
-    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
-        Volver
-    </a>
-    
+        </select>
+
+    </div>
+
+</div>
+<button type="submit" class="btn btn-success">Guardar</button>
+
+<a href="{{ route('cursos.index') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
 </div>
 @endsection

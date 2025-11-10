@@ -27,9 +27,6 @@ class moduloController extends Controller
         // Trae todos los cursos disponibles
         $cursos = curso::all();
 
-        // Trae todos los tipos de curso
-        $tiposCurso = Tipo_Curso::all();
-
         // Envía ambas variables a la vista
         return view('modulos.create', compact('cursos'));
     }

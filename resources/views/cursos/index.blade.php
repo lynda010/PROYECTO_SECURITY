@@ -2,9 +2,13 @@
 
 @section('content')
 <div class="container">
+
+    <div> 
+        <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Nuevo Curso</a>
+    </div>
     <h1>Lista de Cursos</h1>
 
-    <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Nuevo Curso</a>
+
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -19,6 +23,7 @@
                 <th>Duración (horas)</th>
                 <th>Días Presenciales</th>
                 <th>Tipo de Curso</th>
+                <th>Administrar</th>
 
             </tr>
         </thead>
@@ -28,8 +33,8 @@
                 <td>{{ $curso->id }}</td>
                 <td>{{ $curso->nombre_curso }}</td>
                 <td>${{ number_format($curso->valor, 2) }}</td>
-                <td>{{ $curso->duracion_horas }}</td>
-                <td>{{ $curso->duracion_dias_presencial }}</td>
+                <td>{{ $curso->duracion_horas }} horas</td>
+                <td>{{ $curso->duracion_dias_presencial }} dias</td>
                 <td>{{ $curso->tipoCurso->nombre_tipo }}</td>
                 <td>
                     <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-warning btn-sm">Editar</a>

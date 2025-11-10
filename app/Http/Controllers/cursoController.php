@@ -2,75 +2,67 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\curso;         
-use App\Models\Tipo_Curso;    
+use App\Models\curso;
+use App\Models\Tipo_Curso;
 use Illuminate\Http\Request;
 
 class cursoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra la lista de cursos
      */
     public function index()
     {
-        $cursos = curso::all();
+        $cursos = curso::with('tipoCurso')->get(); // para mostrar tipo de curso fácilmente
         return view('cursos.index', compact('cursos'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario de creación
      */
     public function create()
     {
-        
-        $tiposCurso = Tipo_Curso::all();
-
-        
+        $tiposCurso = Tipo_Curso::all(); // ✅ Corregido
         return view('cursos.create', compact('tiposCurso'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo curso en la base de datos
      */
     public function store(Request $request)
-    {
-        
-        $data = $request->validate([
-            'nombre_curso' => 'required|string|max:100',
-            'valor' => 'required|numeric',
-            'duracion_horas' => 'required|integer',
-            'duracion_dias_presencial' => 'required|integer',
-            'tipo_curso_id' => 'required|exists:tipo_curso,id',
+{
 
-        ]);
+    
+     // Validar los datos
+    $request->validate([
+        'nombre_curso' => 'required|string|max:100',
+        'valor' =>         'required|numeric',
+        'duracion_horas' => 'required|integer',
+        'duracion_dias_presencial' => 'required|integer',
+    ]);
 
-        
-        curso::create($data);
 
-        return redirect()->route('cursos.index')
-            ->with('success', 'Curso creado exitosamente.');
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    // Guardar en la base de datos
+    curso::create($request->all());
+
+    // Redirigir con mensaje de éxito
+    return redirect()->route('cursos.index')
+        ->with('success', 'Curso creado exitosamente.');
+}
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario de edición
      */
     public function edit(string $id)
     {
         $curso = curso::findOrFail($id);
-        $tiposCurso = Tipo_Curso::all(); 
+        $tiposCurso = Tipo_Curso::all();
         return view('cursos.edit', compact('curso', 'tiposCurso'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un curso existente
      */
     public function update(Request $request, string $id)
     {
@@ -82,7 +74,6 @@ class cursoController extends Controller
             'duracion_horas' => 'required|integer',
             'duracion_dias_presencial' => 'required|integer',
             'tipo_curso_id' => 'required|exists:tipo_curso,id',
-
         ]);
 
         $curso->update($data);
@@ -92,7 +83,7 @@ class cursoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un curso
      */
     public function destroy(string $id)
     {
