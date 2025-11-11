@@ -20,7 +20,8 @@
             </tr>
         </thead>
         <tbody>
-        @foreach ($modulos as $modulo)
+
+        @foreach($modulos as $modulo)
             <tr>
                 <td>{{ $modulo->id }}</td>
                 <td>{{ $modulo->nombre_modulo }}</td>

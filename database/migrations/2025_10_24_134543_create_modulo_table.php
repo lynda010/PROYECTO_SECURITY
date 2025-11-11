@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre_modulo', 100);
             $table->unsignedBigInteger('curso_id');
-            $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
+            $table->foreign('curso_id')->references('id')->on('curso');
             $table->timestamps();
         });
     }

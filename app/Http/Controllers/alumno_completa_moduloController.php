@@ -22,27 +22,29 @@ class alumno_completa_moduloController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    $alumnos = Alumno::all();
-    $modulos = modulo::with('curso')->get();
+    {
+        $alumnos = Alumno::all();
+        $modulos = modulo::with('curso')->get();
 
-    return view('alumno_completa_modulos.create', compact('alumnos', 'modulos'));
-}
+        return view('alumno_completa_modulos.create', compact('alumnos', 'modulos'));
+    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'fecha_finalizacion' => 'required|date',
             'estado' => 'required|string|max:50',
             'alumno_id' => 'required|exists:alumno,id',
-            'modulo_id' => 'required|exists:modulo,id',
+            'modulo_id' => 'required|exists:modulos,id',
         ]);
 
         alumno_completa_modulo::create($request->all());
 
+        
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro creado exitosamente.');
     }

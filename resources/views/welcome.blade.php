@@ -1,95 +1,174 @@
 @extends('layouts.app')
 
-@section('title')
-Dashboard
-@endsection
+@section('title', 'Security Academy')
 
 @section('titleContent')
-Página Principal
+
+<div class="text-center mb-4">
+    <h1 class="fw-bold text-white">Security Academy</h1>
+    <!-- 🔹 Imagen centrada -->
+<div class="logo-container">
+    <img src="{{ asset('images/security-academy-logo.jpeg') }}" alt="Security Academy Logo">
+</div>
+
+</div>
 @endsection
 
 @section('Content')
-<div class="row g-4">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Tipo De Curso</h5>
-                <p class="card-text">Administra los tipos de cursos disponibles en el sistema.</p>
-                <a href="{{ route('tipo_cursos.index') }}" class="btn btn-primary">Ver Tipos de Curso</a>
+<style>
+    /* 🔹 Color de fondo verde medio sólido */
+    body, .content-wrapper {
+        background-color: #2f6d46 !important;
+        color: #fff;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* 🔹 Ajuste para el fondo de las tarjetas */
+    .card {
+        border: none;
+        border-radius: 15px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.10);
+        backdrop-filter: blur(4px);
+        color: #fff;
+        text-align: center;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .icon-container {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    /* Colores de botones */
+    .btn-info { background-color: #00bcd4; }
+    .btn-success { background-color: #4caf50; }
+    .btn-warning { background-color: #ffc107; color: #000; }
+    .btn-primary { background-color: #2196f3; }
+    .btn-indigo { background-color: #3f51b5; }
+    .btn-teal { background-color: #009688; }
+    .btn-orange { background-color: #ff9800; }
+    .btn-purple { background-color: #673ab7; }
+
+    /* 🔹 Color del pie de página */
+    footer {
+        background-color: #2f6d46 !important;
+        color: white;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row g-4 justify-content-center">
+
+        <!-- Tipo de Curso -->
+        <div class="col-md-3">
+            <div class="card tipo-curso h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-file-alt"></i></div>
+                    <h5 class="fw-bold text-white">Tipo De Curso</h5>
+                    <p class="card-text">Administra los tipos de cursos disponibles en el sistema.</p>
+                    <a href="{{ route('tipo_cursos.index') }}" class="btn btn-info">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Alumno</h5>
-                <p class="card-text">Gestiona la información de los alumnos registrados.</p>
-                <a href="{{ route('alumnos.index') }}" class="btn btn-primary">Ver Alumnos</a>
+        <!-- Alumno -->
+        <div class="col-md-3">
+            <div class="card alumno h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-user-graduate"></i></div>
+                    <h5 class="fw-bold text-white">Alumno</h5>
+                    <p class="card-text">Gestiona la información de los alumnos registrados.</p>
+                    <a href="{{ route('alumnos.index') }}" class="btn btn-success">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Certificado</h5>
-                <p class="card-text">Revisa y administra los certificados de los alumnos.</p>
-                <a href="{{ route('certificados.index') }}" class="btn btn-primary">Ver Certificados</a>
+        <!-- Certificado -->
+        <div class="col-md-3">
+            <div class="card certificado h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-award"></i></div>
+                    <h5 class="fw-bold text-white">Certificado</h5>
+                    <p class="card-text">Revisa y administra los certificados de los alumnos.</p>
+                    <a href="{{ route('certificados.index') }}" class="btn btn-warning">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Curso</h5>
-                <p class="card-text">Gestiona el catálogo de cursos disponibles para los alumnos.</p>
-                <a href="{{ route('cursos.index') }}" class="btn btn-primary">Ver Cursos</a>
+        <!-- Curso -->
+        <div class="col-md-3">
+            <div class="card curso h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h5 class="fw-bold text-white">Curso</h5>
+                    <p class="card-text">Gestiona el catálogo de cursos disponibles para los alumnos.</p>
+                    <a href="{{ route('cursos.index') }}" class="btn btn-primary">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Modulo</h5>
-                <p class="card-text">Administra los módulos que componen cada curso.</p>
-                <a href="{{ route('modulos.index') }}" class="btn btn-primary">Ver Módulos</a>
+        <!-- Módulo -->
+        <div class="col-md-3">
+            <div class="card modulo h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-layer-group"></i></div>
+                    <h5 class="fw-bold text-white">Módulo</h5>
+                    <p class="card-text">Administra los módulos que componen cada curso.</p>
+                    <a href="{{ route('modulos.index') }}" class="btn btn-indigo">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Alumno Completa Modulo</h5>
-                <p class="card-text">Registra el progreso de los alumnos en cada módulo.</p>
-                <a href="{{ route('alumno_completa_modulos.index') }}" class="btn btn-primary">Ver Progreso</a>
+        <!-- Alumno Completa Módulo -->
+        <div class="col-md-3">
+            <div class="card alumno-modulo h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-tasks"></i></div>
+                    <h5 class="fw-bold text-white">Alumno Completa Módulo</h5>
+                    <p class="card-text">Registra el progreso de los alumnos en cada módulo.</p>
+                    <a href="{{ route('alumno_completa_modulos.index') }}" class="btn btn-teal">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Pago</h5>
-                <p class="card-text">Administra los pagos realizados por los alumnos.</p>
-                <a href="{{ route('pagos.index') }}" class="btn btn-primary">Ver Pagos</a>
+        <!-- Pago -->
+        <div class="col-md-3">
+            <div class="card pago h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-money-bill-wave"></i></div>
+                    <h5 class="fw-bold text-white">Pago</h5>
+                    <p class="card-text">Administra los pagos realizados por los alumnos.</p>
+                    <a href="{{ route('pagos.index') }}" class="btn btn-orange">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-3">
-        <div class="card shadow-sm text-center h-100">
-            <div class="card-body">
-                <h5 class="card-title">Alumno Toma Curso</h5>
-                <p class="card-text">Gestiona los cursos que los alumnos están tomando actualmente.</p>
-                <a href="{{ route('alumno_toma_cursos.index') }}" class="btn btn-primary">Ver Cursos Tomados</a>
+        <!-- Alumno Toma Curso -->
+        <div class="col-md-3">
+            <div class="card alumno-curso h-100">
+                <div class="card-body">
+                    <div class="icon-container"><i class="fas fa-users"></i></div>
+                    <h5 class="fw-bold text-white">Alumno Toma Curso</h5>
+                    <p class="card-text">Gestiona los cursos que los alumnos están tomando actualmente.</p>
+                    <a href="{{ route('alumno_toma_cursos.index') }}" class="btn btn-purple">Ver</a>
+                </div>
             </div>
         </div>
-    </div>
 
+    </div>
 </div>
 @endsection

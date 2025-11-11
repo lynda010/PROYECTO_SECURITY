@@ -36,6 +36,14 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+            <label for="nombre_certificado" class="form-label">Nombre Certificado</label>
+            <input type="text" name="nombre_certificado" id="nombre_certificado" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="nombre_modulo" class="form-label"> Nombre Modulo</label>
+            <input type="text" name="nombre_modulo" id="nombre_modulo" class="form-control" required>
+        </div>
 
         <div class="mb-3">
             <label for="fecha_finalizacion" class="form-label">Fecha de Finalización</label>
@@ -51,6 +59,7 @@
                 <option value="En curso">En curso</option>
             </select>
         </div>
+
 
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('alumno_completa_modulos.index') }}" class="btn btn-secondary">Cancelar</a>

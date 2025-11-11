@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Security Academy',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Security </b>Academy',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -198,7 +198,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-light-success elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -259,7 +259,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -326,21 +326,52 @@ return [
             'text' => 'Principal',
             'url' => '/',
             'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Cursos',
-            'url' => '/cursos',
+            'text' => 'Alumnos',
+            'url' => '/alumnos',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url' => 'admin/settings',
+            'text' => 'Cursos',
+            'url' => '/cursos',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        ['header' => 'labels'],
+        [
+            'text' => 'Tipo Cursos',
+            'url' => '/tipo_cursos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Modulo',
+            'url' => '/modulos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Certificado',
+            'url' => '/certificados',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Pagos',
+            'url' => '/pagos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+
+        ['header' => 'AMINISTRADOR'],
+        
+        [
+            'text' => 'Alumno Toma Curso',
+            'url' => '/alumno_toma_cursos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'Alumno Completa Modulo',
+            'url' => '/alumno_completa_modulos',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        
     ],
 
     /*

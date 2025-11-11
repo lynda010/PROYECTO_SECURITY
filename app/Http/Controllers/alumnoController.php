@@ -21,7 +21,8 @@ class alumnoController extends Controller
      */
     public function create()
     {
-        return view('alumnos.create');
+        $alumnos = alumno::all();
+        return view('alumnos.create', compact('alumnos'));
     }
 
     /**
@@ -29,21 +30,21 @@ class alumnoController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'tipo_documento' => 'required|string|max:20',
-            'numero_documento' => 'required|string|max:50|unique:alumno,numero_documento',
-            'nombres' => 'required|string|max:20',
-            'apellidos' => 'required|string|max:50',
+            'tipo_documento' => 'required|string|max:50',
+            'numero_documento' => 'required|string|max:50',
+            'nombres' => 'required|string|max:100',
+            'apellidos' => 'required|string|max:100',
             'fecha_nacimiento' => 'required|date',
             'genero' => 'required|string|max:20',
-            'eps' => 'required|string|max:150',
-            'correo_electronico' => 'required|string|max:100',
+            'eps' => 'required|string|max:100',
+            'correo_electronico' => 'required|email|max:150',
             'telefono' => 'required|string|max:20',
-            'direccion' => 'required|string|max:255',
+            'direccion' => 'required|string|max:150',
             'usuario_plataforma' => 'required|string|max:50',
-            'contrasena_plataforma' => 'required|string|max:50',
+            'contrasena_plataforma' => 'required|string|max:100',
             'situacion_militar_definida' => 'required|boolean',
-
         ]);
 
         alumno::create($request->all());

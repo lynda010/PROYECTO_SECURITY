@@ -23,17 +23,18 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($registros as $registro)
+            @foreach ($alumno_completa_modulos as $alumno_completa_modulo)
             <tr>
-                <td>{{ $registro->id }}</td>
-                <td>{{ $registro->alumno->nombres }} {{ $registro->alumno->apellidos }}</td>
-                <td>{{ $registro->modulo->nombre_modulo }}</td>
-                <td>{{ $registro->modulo->curso->nombre_curso }}</td>
-                <td>{{ $registro->fecha_finalizacion }}</td>
-                <td>{{ $registro->estado }}</td>
+                <td>{{ $alumno_completa_modulo->id }}</td>
+                <td>{{ $alumno_completa_modulo->alumno->nombres }} {{ $registro->alumno->apellidos }}</td>
+                <td>{{ $alumno_completa_modulo->modulo ? $registro->modulo->nombre_modulo : 'Sin módulo' }}</td>
+                <td>{{ $alumno_completa_modulo->modulo && $registro->modulo->curso ? $registro->modulo->curso->nombre_curso : 'Sin curso' }}</td>
+                <td>{{ $alumno_completa_modulo->fecha_finalizacion }}</td>
+                <td>{{ $alumno_completa_modulo->nombre_certificado->nombre_modulo}}</td>
+                <td>{{ $alumno_completa_modulo->estado }}</td>
                 <td>
-                    <a href="{{ route('alumno_completa_modulos.edit', $registro->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="{{ route('alumno_completa_modulos.destroy', $registro->id) }}" method="POST" style="display:inline-block;">
+                    <a href="{{ route('alumno_completa_modulos.edit', $alumno_completa_modulo>id) }}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{{ route('alumno_completa_modulos.destroy', $alumno_completa_modulo->id) }}" method="POST" style="display:inline-block;">
                         @csrf
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>

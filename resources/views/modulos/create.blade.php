@@ -18,7 +18,6 @@
                 @foreach($cursos  as $curso)
                     <option value="{{$curso->id}}">{{$curso->nombre_curso}}</option>
                 @endforeach
-          
             </select>
         </div>
 

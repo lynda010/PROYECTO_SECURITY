@@ -44,7 +44,7 @@
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia">Transferencia</option>
                 <option value="Tarjeta">Tarjeta</option>
-                <option value="Cheque">Cheque</option>
+                
             </select>
         </div>
 

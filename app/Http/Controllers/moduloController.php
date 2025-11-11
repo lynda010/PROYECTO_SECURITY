@@ -35,19 +35,13 @@ class moduloController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    
-        /*$data = $request->validate([
-            'nombre_modulo' => 'required|string|max:100',
-            'curso_id' => 'required|exists:cursos,id',
-        ]);*/
-
+    {
         
 
-    Modulo::create($request->all());
+        Modulo::create($request->all());
 
-    return redirect()->route('modulos.index')->with('success', 'Módulo registrado correctamente.');
-}
+        return redirect()->route('modulos.index')->with('success', 'Módulo registrado correctamente.');
+    }
 
 
 
