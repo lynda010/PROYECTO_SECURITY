@@ -13,10 +13,16 @@ class alumno_completa_moduloController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $registros = alumno_completa_modulo::all();
-        return view('alumno_completa_modulos.index', compact('registros'));
-    }
+{
+    // Ajusta los nombres de modelo/relaciones según tu proyecto
+    $alumno_completa_modulos = \App\Models\alumno_completa_modulo::with([
+        'alumno',
+        'modulo.curso',    // si la relación modulo->curso existe
+        
+    ])->get();
+
+    return view('alumno_completa_modulos.index', compact('alumno_completa_modulos'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -60,18 +66,24 @@ class alumno_completa_moduloController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $alumno_completa_modulo = alumno_completa_modulo::find($id);
-        return view('alumno_completa_modulos.edit', compact('alumno_completa_modulo'));
+
+        $alumnos = Alumno::all();
+        $modulos = modulo::with('curso')->get();
+        $alumno_completa_modulo = alumno_completa_modulo::findorfail($id);
+        return view('alumno_completa_modulos.edit', compact('alumno_completa_modulo','alumnos','modulos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        alumno_completa_modulo::find($id)->update($request->validate());
+
+        $alumno_completa_modulo = alumno_completa_modulo::findorfail($id);
+        $alumno_completa_modulo->update($request->all());
+
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro actualizado exitosamente.');
     }
@@ -79,9 +91,13 @@ class alumno_completa_moduloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        alumno_completa_modulo::find($id)->delete();
+
+        
+        $alumno_completa_modulo = alumno_completa_modulo::findorfail($id);
+        $alumno_completa_modulo->delete();
+
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro eliminado exitosamente.');
     }

@@ -20,7 +20,7 @@
                 <th>Monto</th>
                 <th>Método</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th>Administrar</th>
             </tr>
         </thead>
         <tbody>

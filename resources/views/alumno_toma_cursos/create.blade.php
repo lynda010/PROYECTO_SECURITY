@@ -32,6 +32,7 @@
             <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required>
         </div>
 
+        <!--
         <div class="mb-3">
             <label for="fecha_fin" class="form-label">Fecha de Finalización</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required>
@@ -49,7 +50,7 @@
                 <option value="1">Sí</option>
                 <option value="0">No</option>
             </select>
-        </div>
+        </div>-->
 
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('alumno_toma_cursos.index') }}" class="btn btn-secondary">Cancelar</a>

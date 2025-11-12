@@ -21,28 +21,33 @@ class alumno_toma_cursoController extends Controller
      */
     public function create()
     {
-        return view('alumno_toma_cursos.create');
+        $alumnos = \App\Models\Alumno::all();
+        $cursos = \App\Models\Curso::all();
+
+        return view('alumno_toma_cursos.create', compact('alumnos', 'cursos'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'fecha_inicio' => 'required|date',
-        'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
-        'calificacion' => 'required|numeric|min:0|max:10',
-        'aprobado' => 'required|boolean',
-        'alumno_id' => 'required|exists:alumno,id',
-        'curso_id' => 'required|exists:curso,id',
-    ]);
+    {
+        $validated = $request->validate([
+            'fecha_inicio' => 'required|date',
+            'alumno_id' => 'required|integer',
+            'curso_id' => 'required|integer',
+        ]);
 
-    alumno_toma_curso::create($request->all());
+        $validated['fecha_fin'] = now(); // ✅ fecha actual
+        $validated['calificacion'] = 0;
+        $validated['aprobado'] = 0;
 
-    return redirect()->route('alumno_toma_cursos.index')
-        ->with('success', 'El registro del alumno en el curso se creó exitosamente.');
-}
+
+        alumno_toma_curso::create($validated);
+
+        return redirect()->route('alumno_toma_cursos.index')
+            ->with('success', 'El registro del alumno en el curso se creó exitosamente.');
+    }
 
 
     /**
@@ -56,21 +61,40 @@ class alumno_toma_cursoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $alumno_toma_curso = alumno_toma_curso::find($id);
-        return view('alumno_toma_cursos.edit', compact('alumno_toma_curso'));
+        // Busca el registro que el alumno tomó
+        $registro = \App\Models\Alumno_Toma_Curso::findOrFail($id);
+
+        // Trae los alumnos y cursos para los select
+        $alumnos = \App\Models\Alumno::all();
+        $cursos = \App\Models\Curso::all();
+
+        // Envía todo a la vista
+        return view('alumno_toma_cursos.edit', compact('registro', 'alumnos', 'cursos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        alumno_toma_curso::find($id)->update($request->validate());
+        $validated = $request->validate([
+            'alumno_id' => 'required',
+            'curso_id' => 'required',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+            'calificacion' => 'nullable|numeric|min:0|max:10',
+            'aprobado' => 'required|boolean',
+        ]);
+
+        $registro = \App\Models\Alumno_Toma_Curso::findOrFail($id);
+        $registro->update($validated);
+
         return redirect()->route('alumno_toma_cursos.index')
-            ->with('success', 'Registro actualizado exitosamente.');
+            ->with('success', 'Registro actualizado correctamente');
     }
+
 
     /**
      * Remove the specified resource from storage.

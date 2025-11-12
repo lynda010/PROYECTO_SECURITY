@@ -7,7 +7,7 @@
     <a href="{{ route('modulos.create') }}" class="btn btn-primary mb-3">Nuevo Módulo</a>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     <table class="table table-bordered table-striped">
@@ -16,12 +16,13 @@
                 <th>ID</th>
                 <th>Nombre del Módulo</th>
                 <th>Curso Asociado</th>
-                
+                <th>Administrar</th>
+
             </tr>
         </thead>
         <tbody>
 
-        @foreach($modulos as $modulo)
+            @foreach($modulos as $modulo)
             <tr>
                 <td>{{ $modulo->id }}</td>
                 <td>{{ $modulo->nombre_modulo }}</td>
@@ -34,7 +35,7 @@
                     </form>
                 </td>
             </tr>
-        @endforeach
+            @endforeach
         </tbody>
     </table>
     <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">

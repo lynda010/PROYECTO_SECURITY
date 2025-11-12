@@ -20,7 +20,7 @@
                 <th>Fecha Fin</th>
                 <th>Calificación</th>
                 <th>Aprobado</th>
-                <th>Acciones</th>
+                <th>Administrar</th>
             </tr>
         </thead>
         <tbody>

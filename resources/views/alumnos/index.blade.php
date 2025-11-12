@@ -19,6 +19,7 @@
                 <th>Correo</th>
                 <th>Teléfono</th>
                 <th>Género</th>
+                <td>Administrar</td>
 
             </tr>
         </thead>

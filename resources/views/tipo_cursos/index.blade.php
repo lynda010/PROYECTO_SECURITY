@@ -14,6 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre del Tipo</th>
+                <td>Administrar </td>
                 
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <tr>
                     <td>{{ $item->id }}</td>
                     <td>{{ $item->nombre_tipo }}</td>
+                    
 
                     <td>
                         <a href="{{ route('tipo_cursos.edit', $item->id) }}" class="btn btn-warning btn-sm">Editar</a>

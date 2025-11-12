@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\curso;
-use App\Models\modulo;
+use App\Models\Modulo;
+use App\Models\Modulo as ModelsModulo;
 use App\Models\Tipo_Curso;
 use Illuminate\Http\Request;
 
@@ -36,13 +37,19 @@ class moduloController extends Controller
      */
     public function store(Request $request)
     {
-        
 
-        Modulo::create($request->all());
+        $validated = $request->validate([
+            'nombre_modulo' => 'required|string|max:255',
+            'curso_id' => 'required',
+        ]);
 
-        return redirect()->route('modulos.index')->with('success', 'Módulo registrado correctamente.');
+
+        Modulo::create($validated);
+
+
+        return redirect()->route('modulos.index')
+            ->with('success', 'Módulo registrado correctamente.');
     }
-
 
 
     /**
@@ -58,16 +65,29 @@ class moduloController extends Controller
      */
     public function edit(string $id)
     {
-        $modulo = modulo::find($id);
-        return view('modulos.edit', compact('modulo'));
+        $modulo = Modulo::findOrFail($id);
+        $cursos = Curso::all();
+
+        return view('modulos.edit', compact('modulo', 'cursos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        Modulo::find($id)->update($request->validate());
+        // Validar los datos
+        $validated = $request->validate([
+            'nombre_modulo' => 'required|string|max:255',
+            'curso_id' => 'required',
+        ]);
+
+        // Buscar y actualizar el módulo
+        $modulo = Modulo::findOrFail($id);
+
+        $modulo->update($validated);
+
+        // Redirigir con mensaje de éxito
         return redirect()->route('modulos.index')
             ->with('success', 'Módulo actualizado exitosamente.');
     }
@@ -75,5 +95,18 @@ class moduloController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {}
+    public function destroy($id)
+    {
+        $modulo = Modulo::findOrFail($id);
+        
+
+
+        if ($modulo->delete()) {
+            return redirect()->route('modulos.index')
+                ->with('success', 'Módulo eliminado exitosamente.');
+        }
+
+        return redirect()->route('modulos.index')
+            ->with('error', 'No se pudo eliminar el módulo.');
+    }
 }

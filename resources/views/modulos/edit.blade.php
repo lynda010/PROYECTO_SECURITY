@@ -6,6 +6,7 @@
 
     <form action="{{ route('modulos.update', $modulo->id) }}" method="POST">
         @csrf
+        @method('POST')
 
         <div class="mb-3">
             <label for="nombre_modulo" class="form-label">Nombre del Módulo</label>
@@ -16,9 +17,9 @@
             <label for="curso_id" class="form-label">Curso Asociado</label>
             <select name="curso_id" id="curso_id" class="form-select" required>
                 @foreach ($cursos as $curso)
-                    <option value="{{ $curso->id }}" {{ $modulo->curso_id == $curso->id ? 'selected' : '' }}>
-                        {{ $curso->nombre_curso }}
-                    </option>
+                <option value="{{ $curso->id }}" {{ $modulo->curso_id == $curso->id ? 'selected' : '' }}>
+                    {{ $curso->nombre_curso }}
+                </option>
                 @endforeach
             </select>
         </div>

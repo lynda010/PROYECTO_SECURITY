@@ -19,6 +19,7 @@
                 <th>Fecha Vencimiento</th>
                 <th>Registro Supervigilancia</th>
                 <th>Alumno</th>
+                <td>Administrar</td>
 
             </tr>
         </thead>

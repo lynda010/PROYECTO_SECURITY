@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pago;
+use App\Models\Alumno;
+use App\Models\Curso;
+use App\Models\Pago;
 use Illuminate\Http\Request;
+
 
 class pagoController extends Controller
 {
@@ -21,28 +24,31 @@ class pagoController extends Controller
      */
     public function create()
     {
-        return view('pagos.create');
-    }
+        // Trae los datos que la vista necesita
+        $alumnos = Alumno::all();
+        $cursos  = Curso::all();
 
+        // Envía ambas variables a la vista
+        return view('pagos.create', compact('alumnos', 'cursos'));
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'fecha_pago' => 'required|date',
-            'monto' => 'required|numeric',
-            'metodo_pago' => 'required|string|max:100',
-            'estado_pago' => 'required|string|max:50',
-            'alumno_id' => 'required|exists:alumno,id',
-            'curso_id' => 'required|exists:curso,id',
-        ]);
+{
+    $validated = $request->validate([
+        'alumno_id'   => 'required',
+        'curso_id'    => 'required',
+        'fecha_pago'  => 'required|date',
+        'monto'       => 'required|numeric|min:0',
+        'metodo_pago' => 'required|string|max:50',
+        'estado_pago' => 'required|string|max:50',
+    ]);
 
-        pago::create($request->all());
+    Pago::create($validated);
 
-        return redirect()->route('pagos.index')
-            ->with('success', 'Pago creado exitosamente.');
-    }
+    return redirect()->route('pagos.index')->with('success', 'Pago registrado correctamente.');
+}
 
     /**
      * Display the specified resource.
@@ -57,16 +63,26 @@ class pagoController extends Controller
      */
     public function edit(string $id)
     {
+
+        // Trae los datos que la vista necesita
+        $alumnos = Alumno::all();
+        $cursos  = Curso::all();
         $pago = pago::find($id);
-        return view('pagos.edit', compact('pago'));
+
+        return view('pagos.edit', compact('pago','alumnos', 'cursos'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        pago::find($id)->update($request->validate());
+
+        $pago = pago::findorfail($id);
+        $pago->update($request->all());
+
+
         return redirect()->route('pagos.index')
             ->with('success', 'Pago actualizado exitosamente.');
     }

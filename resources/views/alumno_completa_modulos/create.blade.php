@@ -32,18 +32,11 @@
             <select name="modulo_id" id="modulo_id" class="form-select" required>
                 <option value="">Seleccione un módulo</option>
                 @foreach ($modulos as $modulo)
-                <option value="{{ $modulo->id }}">{{ $modulo->nombre_modulo }} ({{ $modulo->curso->nombre_curso }})</option>
+                <option value="{{ $modulo->id }}"> {{ $modulo->curso->nombre_curso }} --  {{ $modulo->nombre_modulo }} </option>
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
-            <label for="nombre_certificado" class="form-label">Nombre Certificado</label>
-            <input type="text" name="nombre_certificado" id="nombre_certificado" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="nombre_modulo" class="form-label"> Nombre Modulo</label>
-            <input type="text" name="nombre_modulo" id="nombre_modulo" class="form-control" required>
-        </div>
+
 
         <div class="mb-3">
             <label for="fecha_finalizacion" class="form-label">Fecha de Finalización</label>

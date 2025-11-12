@@ -331,12 +331,12 @@ return [
         [
             'text' => 'Alumnos',
             'url' => '/alumnos',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-user-graduate',
         ],
         [
             'text' => 'Cursos',
             'url' => '/cursos',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-chalkboard-teacher',
         ],
         [
             'text' => 'Tipo Cursos',
@@ -346,17 +346,17 @@ return [
         [
             'text' => 'Modulo',
             'url' => '/modulos',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-layer-group',
         ],
         [
             'text' => 'Certificado',
             'url' => '/certificados',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-award',
         ],
         [
             'text' => 'Pagos',
             'url' => '/pagos',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-money-bill-wave',
         ],
 
         ['header' => 'AMINISTRADOR'],
@@ -364,12 +364,12 @@ return [
         [
             'text' => 'Alumno Toma Curso',
             'url' => '/alumno_toma_cursos',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-users',
         ],
         [
             'text' => 'Alumno Completa Modulo',
             'url' => '/alumno_completa_modulos',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-tasks',
         ],
         
     ],
