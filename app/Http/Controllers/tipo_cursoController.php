@@ -73,12 +73,5 @@ class Tipo_CursoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $tipo_curso = Tipo_Curso::findOrFail($id);
-        $tipo_curso->delete();
-
-        return redirect()->route('tipo_cursos.index')
-            ->with('success', 'Tipo de curso eliminado exitosamente.');
-    }
+    public function destroy(string $id) {}
 }

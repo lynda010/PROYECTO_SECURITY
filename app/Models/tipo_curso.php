@@ -4,8 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Tipo_Curso extends Model
 {
+    use HasFactory;
+
     protected $table = 'tipo_curso'; // usa minúsculas, como en la migración
 
     protected $fillable = ['nombre_tipo']; // <-- CORRECTO

@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 TipoCursosSeeder::class,
+                cursosSeeder::class,
+                ModulosSeeder::class,
             ]
         );
     }

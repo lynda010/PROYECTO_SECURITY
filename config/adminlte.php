@@ -329,9 +329,9 @@ return [
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'Alumnos',
-            'url' => '/alumnos',
-            'icon' => 'fas fa-user-graduate',
+            'text' => 'Tipo Cursos',
+            'url' => '/tipo_cursos',
+            'icon' => 'fas fa-fw fa-lock',
         ],
         [
             'text' => 'Cursos',
@@ -339,9 +339,9 @@ return [
             'icon' => 'fas fa-chalkboard-teacher',
         ],
         [
-            'text' => 'Tipo Cursos',
-            'url' => '/tipo_cursos',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Alumnos',
+            'url' => '/alumnos',
+            'icon' => 'fas fa-user-graduate',
         ],
         [
             'text' => 'Modulo',
@@ -360,7 +360,7 @@ return [
         ],
 
         ['header' => 'AMINISTRADOR'],
-        
+
         [
             'text' => 'Alumno Toma Curso',
             'url' => '/alumno_toma_cursos',
@@ -371,7 +371,7 @@ return [
             'url' => '/alumno_completa_modulos',
             'icon' => 'fas fa-tasks',
         ],
-        
+
     ],
 
     /*

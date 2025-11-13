@@ -30,26 +30,26 @@ class cursoController extends Controller
      * Guarda un nuevo curso en la base de datos
      */
     public function store(Request $request)
-{
-
-    
-     // Validar los datos
-    $request->validate([
-        'nombre_curso' => 'required|string|max:100',
-        'valor' =>         'required|numeric',
-        'duracion_horas' => 'required|integer',
-        'duracion_dias_presencial' => 'required|integer',
-    ]);
+    {
 
 
+        // Validar los datos
+        $request->validate([
+            'nombre_curso' => 'required|string|max:100',
+            'valor' =>         'required|numeric',
+            'duracion_horas' => 'required|integer',
+            'duracion_dias_presencial' => 'required|integer',
+        ]);
 
-    // Guardar en la base de datos
-    curso::create($request->all());
 
-    // Redirigir con mensaje de éxito
-    return redirect()->route('cursos.index')
-        ->with('success', 'Curso creado exitosamente.');
-}
+
+        // Guardar en la base de datos
+        curso::create($request->all());
+
+        // Redirigir con mensaje de éxito
+        return redirect()->route('cursos.index')
+            ->with('success', 'Curso creado exitosamente.');
+    }
 
     /**
      * Muestra el formulario de edición
@@ -85,12 +85,5 @@ class cursoController extends Controller
     /**
      * Elimina un curso
      */
-    public function destroy(string $id)
-    {
-        $curso = curso::findOrFail($id);
-        $curso->delete();
-
-        return redirect()->route('cursos.index')
-            ->with('success', 'Curso eliminado correctamente.');
-    }
+    public function destroy(string $id) {}
 }

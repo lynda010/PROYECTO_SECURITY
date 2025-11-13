@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\alumno;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class alumnoController extends Controller
@@ -106,5 +107,20 @@ class alumnoController extends Controller
         $alumno->delete();
         return redirect()->route('alumnos.index')
             ->with('success', 'Alumno eliminado exitosamente.');
+    }
+
+    public function generarPDF()
+    {
+        $alumnos = Alumno::all();
+
+        $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
+        return $pdf->stream('reporte_alumnos.pdf');
+    }
+    public function verpdfalumnos()
+    {
+        $alumnos = Alumno::all();
+
+        $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
+        return $pdf->stream('reporte_alumnos.pdf');
     }
 }

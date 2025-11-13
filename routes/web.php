@@ -83,3 +83,11 @@ Route::post('/alumno_toma_cursos/store', [alumno_toma_cursoController::class, 's
 Route::get('/alumno_toma_cursos/edit/{id}', [alumno_toma_cursoController::class, 'edit'])->name('alumno_toma_cursos.edit');
 Route::post('/alumno_toma_cursos/update/{id}', [alumno_toma_cursoController::class, 'update'])->name('alumno_toma_cursos.update');
 Route::post('/alumno_toma_cursos/destroy/{id}', [alumno_toma_cursoController::class, 'destroy'])->name('alumno_toma_cursos.destroy');
+
+//ruta ver pdf
+
+// Ver PDF de alumnos
+Route::get('/alumnospdf', [alumnoController::class, 'verpdfalumnos'])->name('alumnos.pdf');
+
+
+Route::get('/alumnos/pdf', [AlumnoController::class, 'generarPDF'])->name('alumnos.pdf');

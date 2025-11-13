@@ -1,51 +1,171 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('Content')
-<div class="container">
-    <h1>Lista de Alumnos</h1>
+@section('title', 'Alumnos')
 
-    <a href="{{ route('alumnos.create') }}" class="btn btn-primary mb-3">Registrar Nuevo Alumno</a>
+@section('content_header')
+<div class="row">
+    <div class="col-3">
+        <a data-bs-toggle="tooltip" title="Volver al menú principal" href="{{ route('alumnos.index') }}"
+            class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+            <i class="fas fa-arrow-left fa-lg"></i> Volver
+        </a>
 
-    @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+        <a data-bs-toggle="tooltip" title="Registrar nuevo alumno" href="{{ route('alumnos.create') }}"
+            class="btn btn-outline-primary mt-2 mb-1 ml-2">
+            <i class="fas fa-plus fa-lg"></i> Nuevo Alumno
+        </a>
+    </div>
+    <div class="col-6">
+        <h1 class="display-6 text-center">Gestión de Alumnos</h1>
+    </div>
+</div>
+@endsection
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Documento</th>
-                <th>Nombre Completo</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <th>Género</th>
-                <td>Administrar</td>
+@section('content')
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($alumnos as $alumno)
-            <tr>
-                <td>{{ $alumno->id }}</td>
-                <td>{{ $alumno->tipo_documento }} {{ $alumno->numero_documento }}</td>
-                <td>{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
-                <td>{{ $alumno->correo_electronico }}</td>
-                <td>{{ $alumno->telefono }}</td>
-                <td>{{ $alumno->genero }}</td>
-                <td>
-                    <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-warning">Editar</a>
+{{-- Botones PDF corregidos --}}
+<div>
+    <a href="{{ route('alumnos.pdf') }}" class="btn btn-danger btn-sm">
+        <i class="fas fa-file-pdf"></i> DESCARGAR PDF
+    </a>
 
-                    <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
-    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
-        Volver
+    <a href="{{ route('alumnos.pdf') }}" class="btn btn-info btn-sm" target="_blank">
+        <i class="fas fa-eye"></i> Ver PDF
     </a>
 </div>
+
+
+{{-- ✅ Card de filtros --}}
+<div class="card card-primary mt-3">
+    <div class="card-header">
+        <h5 class="card-title">Filtros de búsqueda</h5>
+    </div>
+    <div class="card-body">
+        <form method="GET" action="{{ route('alumnos.index') }}">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="numero_documento">Documento</label>
+                    <input type="text" name="numero_documento" id="numero_documento" class="form-control"
+                        value="{{ request('numero_documento') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="nombres">Nombres</label>
+                    <input type="text" name="nombres" id="nombres" class="form-control"
+                        value="{{ request('nombres') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="correo_electronico">Correo</label>
+                    <input type="email" name="correo_electronico" id="correo_electronico" class="form-control"
+                        value="{{ request('correo_electronico') }}">
+                </div>
+
+                <div class="col-md-2 align-self-end">
+                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+                    <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Limpiar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- ✅ Tabla de resultados --}}
+<div class="card mt-3">
+    <div class="card-header">
+        <h5 class="card-title">Listado de Alumnos</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-striped" id="tablaAlumnos">
+            <thead class="table-success">
+                <tr>
+                    <th>ID</th>
+                    <th>Documento</th>
+                    <th>Nombre Completo</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Género</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($alumnos as $alumno)
+                <tr>
+                    <td>{{ $alumno->id }}</td>
+                    <td>{{ $alumno->tipo_documento }} {{ $alumno->numero_documento }}</td>
+                    <td>{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
+                    <td>{{ $alumno->correo_electronico }}</td>
+                    <td>{{ $alumno->telefono }}</td>
+                    <td>{{ $alumno->genero }}</td>
+                    <td>
+                        <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-outline-warning btn-sm">
+                            <i class="fas fa-pencil-alt"></i> Editar
+                        </a>
+                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST"
+                            class="d-inline" onsubmit="confirmarEliminacion(event)">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Eliminar
+                            </button>
+                        </form>
+
+
+
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
+@endsection
+
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function confirmarEliminacion(event) {
+        event.preventDefault();
+        const form = event.target.closest('form');
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#tablaAlumnos').DataTable({
+            responsive: true,
+            autoWidth: false,
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
+            }
+        });
+    });
+</script>
 @endsection
