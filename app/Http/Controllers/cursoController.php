@@ -85,5 +85,16 @@ class cursoController extends Controller
     /**
      * Elimina un curso
      */
-    public function destroy(string $id) {}
+    public function destroy($id)
+{
+    $curso = Curso::findOrFail($id);
+
+    if ($curso->modulos()->count() > 0) {
+        return back()->with('error', 'No se puede eliminar este Curso porque tiene módulos asociados.');
+    }
+
+    $curso->delete();
+
+    return back()->with('success', 'Curso eliminado correctamente.');
+}
 }

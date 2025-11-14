@@ -73,5 +73,16 @@ class Tipo_CursoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {}
+    public function destroy($id)
+{
+    $tipo = Tipo_Curso::findOrFail($id);
+
+    if ($tipo->cursos()->count() > 0) {
+        return back()->with('error', 'No se puede eliminar este Tipo de Curso porque tiene cursos asociados.');
+    }
+
+    $tipo->delete();
+
+    return back()->with('success', 'Tipo de Curso eliminado correctamente.');
+}
 }

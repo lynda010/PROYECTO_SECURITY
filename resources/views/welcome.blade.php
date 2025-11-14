@@ -5,11 +5,17 @@
 @section('titleContent')
 
 <div class="text-center mb-4">
-    <h1 class="fw-bold text-white">Security Academy</h1>
+    <h1 class="fw-bold text-white">Bienvenido al Sistema de Gestión de Security Academy</h1>
     <!-- 🔹 Imagen centrada -->
-<div class="logo-container">
-    <img src="{{ asset('images/security-academy-logo.jpeg') }}" alt="Security Academy Logo">
-</div>
+    <img src="{{ asset('images/logo.png') }}"
+        alt="Logo"
+        style="width: 180px;               /* tamaño más grande */
+            float: left;               /* al lado izquierdo */
+            margin-right: 20px;        /* separación del texto */
+            border: 3px solid #2E7D32; /* borde verde profesional */
+            padding: 5px;              /* espacio interno */
+            border-radius: 10px;       /* bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra sutil */">
 
 </div>
 @endsection
@@ -19,7 +25,8 @@
 
 <style>
     /* 🔹 Color de fondo verde medio sólido */
-    body, .content-wrapper {
+    body,
+    .content-wrapper {
         background-color: #2f6d46 !important;
         color: #fff;
         font-family: 'Poppins', sans-serif;
@@ -54,14 +61,38 @@
     }
 
     /* Colores de botones */
-    .btn-info { background-color: #00bcd4; }
-    .btn-success { background-color: #4caf50; }
-    .btn-warning { background-color: #ffc107; color: #000; }
-    .btn-primary { background-color: #2196f3; }
-    .btn-indigo { background-color: #3f51b5; }
-    .btn-teal { background-color: #009688; }
-    .btn-orange { background-color: #ff9800; }
-    .btn-purple { background-color: #673ab7; }
+    .btn-info {
+        background-color: #00bcd4;
+    }
+
+    .btn-success {
+        background-color: #4caf50;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .btn-primary {
+        background-color: #2196f3;
+    }
+
+    .btn-indigo {
+        background-color: #3f51b5;
+    }
+
+    .btn-teal {
+        background-color: #009688;
+    }
+
+    .btn-orange {
+        background-color: #ff9800;
+    }
+
+    .btn-purple {
+        background-color: #673ab7;
+    }
 
     /* 🔹 Color del pie de página */
     footer {

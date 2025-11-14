@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Reporte de Alumnos Matriculados</title>
@@ -10,7 +11,8 @@
             margin: 20px;
         }
 
-        h1, h3 {
+        h1,
+        h3 {
             text-align: center;
         }
 
@@ -20,40 +22,35 @@
             margin-top: 15px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #999;
             padding: 6px;
             text-align: left;
         }
 
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-
         .header {
             text-align: center;
             margin-bottom: 20px;
-        }
-
-        .logo {
-            width: 80px;
-            margin-bottom: 10px;
-        }
-
-        .summary {
-            margin-top: 20px;
         }
     </style>
 </head>
 
 <body>
+
     <!-- ENCABEZADO -->
     <div class="header">
-        <div style="display: flex; align-items: center; justify-content: center;">
-            <img src="{{ public_path('images/logo.png') }}" alt="Logo" style="height: 100px; width: 100px; margin-right: 10px;">
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="{{ public_path('images/logo.png') }}" alt="Logo"
+                style="height: 60px; width: 60px; margin-right: 10px;">
             <h1 style="margin: 0;">SISTEMA SECURITY ACADEMY</h1>
         </div>
+
         <p><strong>Reporte de Alumnos Matriculados</strong></p>
-        <p><strong>Fecha de generación:</strong> {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}</p>
+        <p><strong>Fecha de generación:</strong>
+    {{ \Carbon\Carbon::now()->locale('es')->translatedFormat('d \d\e F \d\e Y – H:i') }}
+</p>
+
     </div>
 
     <!-- RESUMEN -->
@@ -85,6 +82,7 @@
                 <th>Situación Militar</th>
             </tr>
         </thead>
+
         <tbody>
             @foreach($alumnos as $alumno)
             <tr>
@@ -108,8 +106,10 @@
     </table>
 
     <!-- PIE -->
-    <div style="margin-top: 30px; text-align: center; font-size: 10px; color: #666;">
-        <p>Reporte generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }} por Sistema Security Academy</p>
+    <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #666;">
+        <p>Reporte generado el {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }} por Security Academy</p>
     </div>
+
 </body>
+
 </html>

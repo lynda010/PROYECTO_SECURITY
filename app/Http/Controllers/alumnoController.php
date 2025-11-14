@@ -105,6 +105,8 @@ class alumnoController extends Controller
     {
         $alumno = alumno::find($id);
         $alumno->delete();
+
+
         return redirect()->route('alumnos.index')
             ->with('success', 'Alumno eliminado exitosamente.');
     }
@@ -122,5 +124,14 @@ class alumnoController extends Controller
 
         $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
         return $pdf->stream('reporte_alumnos.pdf');
+    }
+    public function detalle($id)
+    {
+        $alumno = Alumno::findOrFail($id);
+
+        // Cursos del alumno con sus módulos
+        $cursos = $alumno->cursos()->with('modulos')->get();
+
+        return view('alumnos.detalle', compact('alumno', 'cursos'));
     }
 }

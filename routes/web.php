@@ -34,6 +34,7 @@ Route::post('/alumnos/store', [alumnoController::class, 'store'])->name('alumnos
 Route::get('/alumnos/edit/{id}', [alumnoController::class, 'edit'])->name('alumnos.edit');
 Route::post('/alumnos/update/{id}', [alumnoController::class, 'update'])->name('alumnos.update');
 Route::post('/alumnos/destroy/{id}', [alumnoController::class, 'destroy'])->name('alumnos.destroy');
+Route::get('/alumnos/{id}/detalle', [AlumnoController::class, 'detalle'])->name('alumnos.detalle');
 
 //rutas certificados
 Route::get('/certificados', [CertificadoController::class, 'index'])->name('certificados.index');

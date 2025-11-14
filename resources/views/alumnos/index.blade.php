@@ -20,10 +20,48 @@
     </div>
 </div>
 @endsection
+{{-- DATA TABLES --}}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+
+    var tabla = $('#tablaAlumnos').DataTable({
+        responsive: true,
+        autoWidth: false,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
+        }
+    });
+
+    $('#filtroDocumento').on('keyup', function() {
+        tabla.column(1).search(this.value).draw();
+    });
+
+    $('#filtroNombres').on('keyup', function() {
+        tabla.column(2).search(this.value).draw();
+    });
+
+    $('#filtroCorreo').on('keyup', function() {
+        tabla.column(3).search(this.value).draw();
+    });
+
+});
+</script>
+@endsection
+
+
 
 @section('content')
 
-{{-- Botones PDF corregidos --}}
 <div>
     <a href="{{ route('alumnos.pdf') }}" class="btn btn-danger btn-sm">
         <i class="fas fa-file-pdf"></i> DESCARGAR PDF
@@ -35,42 +73,36 @@
 </div>
 
 
-{{-- ✅ Card de filtros --}}
+{{-- Filtros --}}
 <div class="card card-primary mt-3">
     <div class="card-header">
         <h5 class="card-title">Filtros de búsqueda</h5>
     </div>
+
     <div class="card-body">
-        <form method="GET" action="{{ route('alumnos.index') }}">
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="numero_documento">Documento</label>
-                    <input type="text" name="numero_documento" id="numero_documento" class="form-control"
-                        value="{{ request('numero_documento') }}">
-                </div>
+        <div class="row">
 
-                <div class="col-md-3">
-                    <label for="nombres">Nombres</label>
-                    <input type="text" name="nombres" id="nombres" class="form-control"
-                        value="{{ request('nombres') }}">
-                </div>
-
-                <div class="col-md-3">
-                    <label for="correo_electronico">Correo</label>
-                    <input type="email" name="correo_electronico" id="correo_electronico" class="form-control"
-                        value="{{ request('correo_electronico') }}">
-                </div>
-
-                <div class="col-md-2 align-self-end">
-                    <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-                    <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Limpiar</a>
-                </div>
+            <div class="col-md-3">
+                <label>Documento</label>
+                <input type="text" id="filtroDocumento" class="form-control" placeholder="Buscar documento...">
             </div>
-        </form>
+
+            <div class="col-md-3">
+                <label>Nombres</label>
+                <input type="text" id="filtroNombres" class="form-control" placeholder="Buscar nombres...">
+            </div>
+
+            <div class="col-md-3">
+                <label>Correo</label>
+                <input type="text" id="filtroCorreo" class="form-control" placeholder="Buscar correo...">
+            </div>
+
+        </div>
     </div>
 </div>
 
-{{-- ✅ Tabla de resultados --}}
+
+{{-- Tabla --}}
 <div class="card mt-3">
     <div class="card-header">
         <h5 class="card-title">Listado de Alumnos</h5>
@@ -98,9 +130,14 @@
                     <td>{{ $alumno->telefono }}</td>
                     <td>{{ $alumno->genero }}</td>
                     <td>
+                        <a href="{{ route('alumnos.detalle', $alumno->id) }}" class="btn btn-outline-info btn-sm">
+                            <i class="fas fa-eye"></i> Detalle
+                        </a>
+
                         <a href="{{ route('alumnos.edit', $alumno->id) }}" class="btn btn-outline-warning btn-sm">
                             <i class="fas fa-pencil-alt"></i> Editar
                         </a>
+
                         <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST"
                             class="d-inline" onsubmit="confirmarEliminacion(event)">
                             @csrf
@@ -108,10 +145,8 @@
                                 <i class="fas fa-trash-alt"></i> Eliminar
                             </button>
                         </form>
-
-
-
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
@@ -134,38 +169,4 @@
 </script>
 @endif
 
-@endsection
-
-@section('js')
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-        const form = event.target.closest('form');
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás revertir esto!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    }
-
-    $(document).ready(function() {
-        $('#tablaAlumnos').DataTable({
-            responsive: true,
-            autoWidth: false,
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
-            }
-        });
-    });
-</script>
 @endsection
