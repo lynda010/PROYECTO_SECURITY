@@ -19,7 +19,7 @@
     @endif
 
     <!-- Tabla -->
-    <table class="table table-bordered mt-3 align-middle text-center">
+    <table class="table table-bordered mt-3 align-middle text-center" id="myTable">
         <thead class="table-light">
             <tr>
                 <th>ID</th>
@@ -63,4 +63,16 @@
     </a>
 
 </div>
+@endsection
+@section('js')
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+        }
+    });
+});
+
+</script>
 @endsection

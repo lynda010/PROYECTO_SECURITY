@@ -14,7 +14,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped" id="myTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -51,4 +51,20 @@
         Siguiente
     </a>
 </div>
+@endsection
+
+
+
+
+@section('js')
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+        }
+    });
+});
+
+</script>
 @endsection

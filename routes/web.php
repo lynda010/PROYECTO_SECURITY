@@ -68,6 +68,12 @@ Route::post('/alumno_completa_modulos/store', [alumno_completa_moduloController:
 Route::get('/alumno_completa_modulos/edit/{id}', [alumno_completa_moduloController::class, 'edit'])->name('alumno_completa_modulos.edit');
 Route::post('/alumno_completa_modulos/update/{id}', [alumno_completa_moduloController::class, 'update'])->name('alumno_completa_modulo.update');
 Route::post('/alumno_completa_modulos/destroy/{id}', [alumno_completa_moduloController::class, 'destroy'])->name('alumno_completa_modulos.destroy');
+Route::get('/alumno_completa_modulos/createMasivo', [alumno_completa_moduloController::class, 'createMasivo'])->name('alumno_completa_modulos.createMasivo');
+Route::post('/alumno_completa_modulos/storeMasivo', [alumno_completa_moduloController::class, 'storeMasivo'])->name('alumno_completa_modulos.storeMasivo');
+
+
+
+
 
 //rutas pago
 Route::get('/pagos', [pagoController::class, 'index'])->name('pagos.index');
@@ -84,6 +90,8 @@ Route::post('/alumno_toma_cursos/store', [alumno_toma_cursoController::class, 's
 Route::get('/alumno_toma_cursos/edit/{id}', [alumno_toma_cursoController::class, 'edit'])->name('alumno_toma_cursos.edit');
 Route::post('/alumno_toma_cursos/update/{id}', [alumno_toma_cursoController::class, 'update'])->name('alumno_toma_cursos.update');
 Route::post('/alumno_toma_cursos/destroy/{id}', [alumno_toma_cursoController::class, 'destroy'])->name('alumno_toma_cursos.destroy');
+Route::get('/alumno_toma_cursos/masivo', [alumno_toma_cursoController::class, 'createMasivo'])->name('alumno_toma_cursos.create.masivo');
+Route::post('/alumno_toma_cursos/storemasivo', [alumno_toma_cursoController::class, 'storeMasivo'])->name('alumno_toma_cursos.storemasivo');
 
 //ruta ver pdf
 

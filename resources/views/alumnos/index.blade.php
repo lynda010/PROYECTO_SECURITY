@@ -20,43 +20,7 @@
     </div>
 </div>
 @endsection
-{{-- DATA TABLES --}}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-
-
-
-@section('scripts')
-<script>
-$(document).ready(function() {
-
-    var tabla = $('#tablaAlumnos').DataTable({
-        responsive: true,
-        autoWidth: false,
-        language: {
-            url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
-        }
-    });
-
-    $('#filtroDocumento').on('keyup', function() {
-        tabla.column(1).search(this.value).draw();
-    });
-
-    $('#filtroNombres').on('keyup', function() {
-        tabla.column(2).search(this.value).draw();
-    });
-
-    $('#filtroCorreo').on('keyup', function() {
-        tabla.column(3).search(this.value).draw();
-    });
-
-});
-</script>
-@endsection
 
 
 
@@ -73,34 +37,6 @@ $(document).ready(function() {
 </div>
 
 
-{{-- Filtros --}}
-<div class="card card-primary mt-3">
-    <div class="card-header">
-        <h5 class="card-title">Filtros de búsqueda</h5>
-    </div>
-
-    <div class="card-body">
-        <div class="row">
-
-            <div class="col-md-3">
-                <label>Documento</label>
-                <input type="text" id="filtroDocumento" class="form-control" placeholder="Buscar documento...">
-            </div>
-
-            <div class="col-md-3">
-                <label>Nombres</label>
-                <input type="text" id="filtroNombres" class="form-control" placeholder="Buscar nombres...">
-            </div>
-
-            <div class="col-md-3">
-                <label>Correo</label>
-                <input type="text" id="filtroCorreo" class="form-control" placeholder="Buscar correo...">
-            </div>
-
-        </div>
-    </div>
-</div>
-
 
 {{-- Tabla --}}
 <div class="card mt-3">
@@ -108,7 +44,7 @@ $(document).ready(function() {
         <h5 class="card-title">Listado de Alumnos</h5>
     </div>
     <div class="card-body">
-        <table class="table table-bordered table-striped" id="tablaAlumnos">
+        <table class="table table-bordered table-striped" id="myTable">
             <thead class="table-success">
                 <tr>
                     <th>ID</th>
@@ -170,3 +106,20 @@ $(document).ready(function() {
 @endif
 
 @endsection
+
+
+
+
+@section('js')
+<script>
+$(document).ready(function () {
+    $('#myTable').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+        }
+    });
+});
+
+</script>
+@endsection
+

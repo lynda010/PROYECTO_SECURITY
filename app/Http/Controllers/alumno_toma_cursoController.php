@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alumno;
 use App\Models\alumno_toma_curso;
+use App\Models\Curso;
 use Illuminate\Http\Request;
 
 class alumno_toma_cursoController extends Controller
@@ -25,6 +27,7 @@ class alumno_toma_cursoController extends Controller
         $cursos = \App\Models\Curso::all();
 
         return view('alumno_toma_cursos.create', compact('alumnos', 'cursos'));
+        
     }
 
     /**
@@ -105,4 +108,44 @@ class alumno_toma_cursoController extends Controller
         return redirect()->route('alumno_toma_cursos.index')
             ->with('success', 'Registro eliminado exitosamente.');
     }
+
+    public function createMasivo()
+    {
+        $alumnos = Alumno::all();
+        $cursos = Curso::all();
+
+        return view('alumno_toma_cursos.createmasivo', compact('alumnos', 'cursos'));
+    }
+
+
+        public function storeMasivo(Request $request)
+        {
+            $validated = $request->validate([
+                'fecha_inicio' => 'required|date',
+                'curso_id' => 'required|integer',
+                'alumno_ids' => 'required|array',
+                'alumno_ids.*' => 'integer'
+            ]);
+
+            foreach ($validated['alumno_ids'] as $alumno_id) {
+                alumno_toma_curso::create([
+                    'alumno_id' => $alumno_id,
+                    'curso_id' => $validated['curso_id'],
+                    'fecha_inicio' => $validated['fecha_inicio'],
+                    'fecha_fin' => now(),
+                    'calificacion' => 0,
+                    'aprobado' => 0,
+                ]);
+            }
+
+            return redirect()->route('alumno_toma_cursos.index')
+                ->with('success', 'Registros masivos creados exitosamente.');
+        }
+
+
+
+
+
+
+
 }

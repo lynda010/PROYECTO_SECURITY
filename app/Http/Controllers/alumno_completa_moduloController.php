@@ -101,4 +101,51 @@ class alumno_completa_moduloController extends Controller
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro eliminado exitosamente.');
     }
+
+
+
+    public function createMasivo()
+    {
+        $alumnos = Alumno::all();
+        $modulos = modulo::with('curso')->get();
+
+        return view('alumno_completa_modulos.createMasivo', compact('alumnos', 'modulos'));
+    }
+
+
+    public function storeMasivo(Request $request)
+{
+    $request->validate([
+        'fecha_finalizacion' => 'required|date',
+        'estado' => 'required|string|max:50',
+
+        // varios alumnos
+        'alumno_ids' => 'required|array',
+        'alumno_ids.*' => 'exists:alumno,id',
+
+        // varios módulos
+        'modulo_ids' => 'required|array',
+        'modulo_ids.*' => 'exists:modulos,id',
+    ]);
+
+    // Crear todos los registros combinando alumno × módulo
+    foreach ($request->alumno_ids as $alumno_id) {
+        foreach ($request->modulo_ids as $modulo_id) {
+            alumno_completa_modulo::create([
+                'fecha_finalizacion' => $request->fecha_finalizacion,
+                'estado' => $request->estado,
+                'alumno_id' => $alumno_id,
+                'modulo_id' => $modulo_id,
+            ]);
+        }
+    }
+
+    return redirect()->route('alumno_completa_modulos.index')
+        ->with('success', 'Registros masivos creados exitosamente.');
+}
+
+
+
+
+
 }
