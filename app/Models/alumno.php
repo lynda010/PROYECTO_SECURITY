@@ -51,16 +51,16 @@ class Alumno extends Model
 
 
     public function cursos()
-    {
-        return $this->belongsToMany(
-            Curso::class,
-            'alumno_toma_cursos',   // nombre REAL de la tabla pivot
-            'id_alumno',            // FK del alumno
-            'id_curso'              // FK del curso
-        )
-            ->withPivot('fecha_inicio', 'fecha_fin', 'calificacion', 'aprobado')
-            ->withTimestamps();
-    }
+{
+    return $this->belongsToMany(Curso::class, 'alumno_toma_cursos', 'alumno_id', 'curso_id')
+                ->withPivot('fecha_inicio','fecha_fin','calificacion','aprobado')
+                ->withTimestamps();
+}
+
+
+
+
+
 
 
     public function modulosCompletados()

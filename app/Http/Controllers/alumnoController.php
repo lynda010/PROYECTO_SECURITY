@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\alumno;
+use App\Models\Curso;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -57,11 +58,23 @@ class alumnoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show($id)
+    {
+        $alumno = Alumno::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+        // Cargar cursos + datos del pivote + módulos del curso
+        $cursos = $alumno->cursos()
+            ->with('modulos')
+            ->get();
+            dd($cursos);
+
+
+        return view('alumnos.detalle', compact('alumno', 'cursos'));
+    }
+
+
+
+
     public function edit(string $id)
     {
         $alumno = alumno::findorFail($id);
@@ -125,12 +138,19 @@ class alumnoController extends Controller
         $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
         return $pdf->stream('reporte_alumnos.pdf');
     }
+
     public function detalle($id)
     {
+        // Buscar alumno (lanza 404 si no existe)
         $alumno = Alumno::findOrFail($id);
 
-        // Cursos del alumno con sus módulos
-        $cursos = $alumno->cursos()->with('modulos')->get();
+        // Cargar cursos y módulos con la información del pivot
+        // Esto usa la relación belongsToMany definida en Alumno
+        // y se asegura de traer los modulos de cada curso.
+        $alumno->load(['cursos.modulos']);
+
+        // Obtener la colección de cursos (ya trae pivot)
+        $cursos = $alumno->cursos;
 
         return view('alumnos.detalle', compact('alumno', 'cursos'));
     }

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\alumno_completa_modulo;
 use App\Models\alumno_toma_curso;
 use App\Models\Curso;
+use App\Models\Modulo;
 use Illuminate\Http\Request;
+use SebastianBergmann\Type\TrueType;
 
 class alumno_toma_cursoController extends Controller
 {
@@ -58,7 +61,7 @@ class alumno_toma_cursoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -142,6 +145,30 @@ class alumno_toma_cursoController extends Controller
                 ->with('success', 'Registros masivos creados exitosamente.');
         }
 
+
+
+public static function calificarCurso($idAlumno)
+{
+    // 1. Contar módulos aprobados
+    $modulosAprobados = alumno_completa_modulo::where('alumno_id', $idAlumno)
+                        ->where('estado', 'Aprobado')
+                        ->count();
+
+    // 2. Si aprobó los 6
+    if ($modulosAprobados == 6) {
+
+        // Obtener registro del curso REAL
+        $cursoAlumno = alumno_toma_curso::where('alumno_id', $idAlumno)->first();
+
+        if ($cursoAlumno) {
+            $cursoAlumno->calificacion = 10;
+            $cursoAlumno->aprobado = true;
+            $cursoAlumno->fecha_fin = now();
+            $cursoAlumno->save();
+        }
+    }
+    
+}
 
 
 

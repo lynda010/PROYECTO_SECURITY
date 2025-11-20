@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Curso extends Model
 {
-    protected $table = 'curso'; // Nombre correcto de tu tabla
+    use HasFactory;
+
+    protected $table = 'curso'; // Nombre exacto de la tabla
 
     protected $fillable = [
         'nombre_curso',
@@ -16,26 +19,28 @@ class Curso extends Model
         'tipo_curso_id',
     ];
 
-    // 🔵 Relación con Tipo de Curso
+    /**
+     * Relación con el tipo de curso.
+     * Un curso pertenece a un tipo.
+     */
     public function tipoCurso()
     {
         return $this->belongsTo(Tipo_Curso::class, 'tipo_curso_id');
     }
 
-    // 🔵 Relación con Módulos
+    /**
+     * Relación con los módulos del curso.
+     * Un curso tiene muchos módulos.
+     */
     public function modulos()
     {
         return $this->hasMany(Modulo::class, 'curso_id');
     }
+
+    
     public function alumnos()
     {
-        return $this->belongsToMany(
-            Alumno::class,
-            'alumno_toma_cursos',
-            'id_curso',
-            'id_alumno'
-        )
-            ->withPivot('fecha_inicio', 'fecha_fin', 'calificacion', 'aprobado')
-            ->withTimestamps();
+        return $this->belongsToMany(Alumno::class, 'alumno_toma_cursos', 'curso_id', 'alumno_id')
+            ->withPivot('fecha_inicio', 'fecha_fin', 'calificacion', 'aprobado');
     }
 }

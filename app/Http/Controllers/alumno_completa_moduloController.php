@@ -44,12 +44,16 @@ class alumno_completa_moduloController extends Controller
         $request->validate([
             'fecha_finalizacion' => 'required|date',
             'estado' => 'required|string|max:50',
-            'alumno_id' => 'required|exists:alumno,id',
-            'modulo_id' => 'required|exists:modulos,id',
+            'alumno_id' => 'required',
+            'modulo_id' => 'required',
         ]);
+
+
+        
 
         alumno_completa_modulo::create($request->all());
 
+        alumno_toma_cursoController::calificarCurso($request->alumno_id);
         
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro creado exitosamente.');
@@ -137,6 +141,11 @@ class alumno_completa_moduloController extends Controller
                 'alumno_id' => $alumno_id,
                 'modulo_id' => $modulo_id,
             ]);
+            
+            
+            alumno_toma_cursoController::calificarCurso($alumno_id);
+
+
         }
     }
 
