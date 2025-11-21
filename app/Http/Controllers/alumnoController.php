@@ -129,13 +129,16 @@ class alumnoController extends Controller
         $alumnos = Alumno::all();
 
         $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
+
         return $pdf->stream('reporte_alumnos.pdf');
     }
     public function verpdfalumnos()
     {
         $alumnos = Alumno::all();
 
-        $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'));
+        $pdf = Pdf::loadView('pdf.alumnopdf', compact('alumnos'))
+        ->setPaper('a4', 'landscape');
+
         return $pdf->stream('reporte_alumnos.pdf');
     }
 

@@ -26,8 +26,8 @@ class alumno_toma_cursoController extends Controller
      */
     public function create()
     {
-        $alumnos = \App\Models\Alumno::all();
-        $cursos = \App\Models\Curso::all();
+        $alumnos = Alumno::all();
+        $cursos = Curso::all();
 
         return view('alumno_toma_cursos.create', compact('alumnos', 'cursos'));
         
@@ -121,54 +121,61 @@ class alumno_toma_cursoController extends Controller
     }
 
 
-        public function storeMasivo(Request $request)
-        {
-            $validated = $request->validate([
-                'fecha_inicio' => 'required|date',
-                'curso_id' => 'required|integer',
-                'alumno_ids' => 'required|array',
-                'alumno_ids.*' => 'integer'
+    public function storeMasivo(Request $request)
+    {
+        $validated = $request->validate([
+            'fecha_inicio' => 'required|date',
+            'curso_id' => 'required|integer',
+            'alumno_ids' => 'required|array',
+            'alumno_ids.*' => 'integer'
+        ]);
+
+        foreach ($validated['alumno_ids'] as $alumno_id) {
+            alumno_toma_curso::create([
+                'alumno_id' => $alumno_id,
+                'curso_id' => $validated['curso_id'],
+                'fecha_inicio' => $validated['fecha_inicio'],
+                'fecha_fin' => now(),
+                'calificacion' => 0,
+                'aprobado' => 0,
             ]);
-
-            foreach ($validated['alumno_ids'] as $alumno_id) {
-                alumno_toma_curso::create([
-                    'alumno_id' => $alumno_id,
-                    'curso_id' => $validated['curso_id'],
-                    'fecha_inicio' => $validated['fecha_inicio'],
-                    'fecha_fin' => now(),
-                    'calificacion' => 0,
-                    'aprobado' => 0,
-                ]);
-            }
-
-            return redirect()->route('alumno_toma_cursos.index')
-                ->with('success', 'Registros masivos creados exitosamente.');
         }
 
+        return redirect()->route('alumno_toma_cursos.index')
+            ->with('success', 'Registros masivos creados exitosamente.');
+    }
 
 
-public static function calificarCurso($idAlumno)
-{
-    // 1. Contar módulos aprobados
-    $modulosAprobados = alumno_completa_modulo::where('alumno_id', $idAlumno)
-                        ->where('estado', 'Aprobado')
-                        ->count();
+   public static function calificarCurso($idAlumno, $cursoId)
+    {
+        // 1️⃣ Obtener cuántos módulos tiene el curso
+        $totalModulosCurso = Modulo::where('curso_id', $cursoId)->count();
 
-    // 2. Si aprobó los 6
-    if ($modulosAprobados == 6) {
+        // 2️⃣ Contar cuántos módulos aprobó el alumno en ese curso
+        $modulosAprobados = alumno_completa_modulo::where('alumno_id', $idAlumno)
+                            ->where('estado', 'Aprobado')
+                            ->whereHas('modulo', function ($query) use ($cursoId) {
+                                $query->where('curso_id', $cursoId);
+                            })
+                            ->count();
 
-        // Obtener registro del curso REAL
-        $cursoAlumno = alumno_toma_curso::where('alumno_id', $idAlumno)->first();
+        // 3️⃣ Si aprobó todos → aprobar curso
+        if ($modulosAprobados == $totalModulosCurso) {
 
-        if ($cursoAlumno) {
-            $cursoAlumno->calificacion = 10;
-            $cursoAlumno->aprobado = true;
-            $cursoAlumno->fecha_fin = now();
-            $cursoAlumno->save();
+            $cursoAlumno = alumno_toma_curso::where('alumno_id', $idAlumno)
+                            ->where('curso_id', $cursoId) 
+                            ->first();
+
+            if ($cursoAlumno) {
+                $cursoAlumno->calificacion = 10;
+                $cursoAlumno->aprobado = true;
+                $cursoAlumno->fecha_fin = now();
+                $cursoAlumno->save(); 
+            }
         }
     }
-    
-}
+
+
 
 
 

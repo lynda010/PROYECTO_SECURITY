@@ -70,7 +70,7 @@
 
             <div class="col-md-6 mb-3">
                 <label for="situacion_militar_definida">Situación Militar Definida</label>
-                <select name="situacion_militar_definida" id="situacion_militar_definida" class="form-select" required>
+                <select name="situacion_militar_definida" id="situacion_militar_definida" class="form-control"required>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>

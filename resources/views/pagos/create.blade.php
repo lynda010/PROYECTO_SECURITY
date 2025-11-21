@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-select" required>
+            <select name="alumno_id" id="alumno_id" class="form-control" required>
                 <option value="">Seleccione un alumno</option>
                 @foreach ($alumnos as $alumno)
                     <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
@@ -19,7 +19,7 @@
 
         <div class="mb-3">
             <label for="curso_id" class="form-label">Curso</label>
-            <select name="curso_id" id="curso_id" class="form-select" required>
+            <select name="curso_id" id="curso_id" class="form-control" required>
                 <option value="">Seleccione un curso</option>
                 @foreach ($cursos as $curso)
                     <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}</option>
@@ -39,7 +39,7 @@
 
         <div class="mb-3">
             <label for="metodo_pago" class="form-label">Método de Pago</label>
-            <select name="metodo_pago" id="metodo_pago" class="form-select" required>
+            <select name="metodo_pago" id="metodo_pago" class="form-control" required>
                 <option value="">Seleccione método</option>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia">Transferencia</option>
@@ -50,7 +50,7 @@
 
         <div class="mb-3">
             <label for="estado_pago" class="form-label">Estado del Pago</label>
-            <select name="estado_pago" id="estado_pago" class="form-select" required>
+            <select name="estado_pago" id="estado_pago" class="form-control"required>
                 <option value="">Seleccione estado</option>
                 <option value="Completado">Completado</option>
                 <option value="Pendiente">Pendiente</option>

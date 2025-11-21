@@ -34,7 +34,7 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-select" required>
+            <select name="alumno_id" id="alumno_id" class="form-control" required>
     <option value="">Seleccione un alumno</option>
     @foreach($alumnos as $alumno)
         <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>

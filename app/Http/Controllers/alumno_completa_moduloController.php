@@ -6,6 +6,9 @@ use App\Models\Alumno;
 use App\Models\alumno_completa_modulo;
 use App\Models\modulo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
+use function Laravel\Prompts\error;
 
 class alumno_completa_moduloController extends Controller
 {
@@ -14,10 +17,10 @@ class alumno_completa_moduloController extends Controller
      */
     public function index()
 {
-    // Ajusta los nombres de modelo/relaciones según tu proyecto
+
     $alumno_completa_modulos = \App\Models\alumno_completa_modulo::with([
         'alumno',
-        'modulo.curso',    // si la relación modulo->curso existe
+        'modulo.curso',    
         
     ])->get();
 
@@ -40,7 +43,6 @@ class alumno_completa_moduloController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'fecha_finalizacion' => 'required|date',
             'estado' => 'required|string|max:50',
@@ -48,16 +50,19 @@ class alumno_completa_moduloController extends Controller
             'modulo_id' => 'required',
         ]);
 
-
-        
+    
+        $modulo = Modulo::find($request->modulo_id);
+        $cursoId = $modulo->curso_id;
 
         alumno_completa_modulo::create($request->all());
 
-        alumno_toma_cursoController::calificarCurso($request->alumno_id);
-        
+        alumno_toma_cursoController::calificarCurso($request->alumno_id, $cursoId );
+
+
         return redirect()->route('alumno_completa_modulos.index')
             ->with('success', 'Registro creado exitosamente.');
     }
+
 
     /**
      * Display the specified resource.
@@ -143,7 +148,7 @@ class alumno_completa_moduloController extends Controller
             ]);
             
             
-            alumno_toma_cursoController::calificarCurso($alumno_id);
+        alumno_toma_cursoController::calificarCurso($alumno_id, modulo::find($modulo_id)->curso_id );
 
 
         }

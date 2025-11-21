@@ -31,7 +31,7 @@
 
         <div class="mb-3"> 
             <label for="tipo_curso_id" class="form-label">Tipo de Curso</label> 
-        <select name="tipo_curso_id" id="tipo_curso_id" class="form-select">
+        <select name="tipo_curso_id" id="tipo_curso_id" class="form-control"
             @foreach($tiposCurso as $item)
             <option value="{{$item->id}}">{{$item->nombre_tipo}}</option>
             @endforeach

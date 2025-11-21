@@ -13,11 +13,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="curso_id" class="form-label">Curso Asociado</label>
-            <select name="curso_id" id="curso_id" class="form-select">
-                @foreach($cursos  as $curso)
-                    <option value="{{$curso->id}}">{{$curso->nombre_curso}}</option>
-                @endforeach
+            <label for="modulo_id" class="form-label">Curso y Módulo</label>
+            <select name="curso_id" id="curso_id" class="form-control">
+
+            
+                    @foreach($cursos as $curso)
+                        <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}  </option>
+                    @endforeach
+       
+
             </select>
         </div>
 

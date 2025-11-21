@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-select" required>
+            <select name="alumno_id" id="alumno_id" class="form-control"required>
                 <option value="">Seleccione un alumno</option>
 
                 @isset($alumnos)
@@ -29,7 +29,7 @@
 
         <div class="mb-3">
             <label for="modulo_id" class="form-label">Módulo</label>
-            <select name="modulo_id" id="modulo_id" class="form-select" required>
+            <select name="modulo_id" id="modulo_id" class="form-control" required>
                 <option value="">Seleccione un módulo</option>
                 @foreach ($modulos as $modulo)
                 <option value="{{ $modulo->id }}"> {{ $modulo->curso->nombre_curso }} --  {{ $modulo->nombre_modulo }} </option>
@@ -45,7 +45,7 @@
 
         <div class="mb-3">
             <label for="estado" class="form-label">Estado</label>
-            <select name="estado" id="estado" class="form-select" required>
+            <select name="estado" id="estado" class="form-control" required>
                 <option value="">Seleccione estado</option>
                 <option value="Aprobado">Aprobado</option>
                 <option value="Reprobado">Reprobado</option>

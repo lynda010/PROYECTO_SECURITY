@@ -65,20 +65,15 @@
 
     <table>
         <thead>
-            <tr>
-                <th>ID</th>
                 <th>Tipo Documento</th>
                 <th>Número Documento</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
+                <th>Nombres Completo</th>
                 <th>Fecha Nacimiento</th>
                 <th>Género</th>
                 <th>EPS</th>
                 <th>Correo Electrónico</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
-                <th>Usuario Plataforma</th>
-                <th>Contraseña Plataforma</th>
                 <th>Situación Militar</th>
             </tr>
         </thead>
@@ -86,19 +81,15 @@
         <tbody>
             @foreach($alumnos as $alumno)
             <tr>
-                <td>{{ $alumno->id }}</td>
                 <td>{{ $alumno->tipo_documento }}</td>
                 <td>{{ $alumno->numero_documento }}</td>
-                <td>{{ $alumno->nombres }}</td>
-                <td>{{ $alumno->apellidos }}</td>
+                <td>{{ $alumno->nombres }} - {{ $alumno->apellidos }}</td>
                 <td>{{ $alumno->fecha_nacimiento }}</td>
                 <td>{{ $alumno->genero }}</td>
                 <td>{{ $alumno->eps }}</td>
                 <td>{{ $alumno->correo_electronico }}</td>
                 <td>{{ $alumno->telefono }}</td>
                 <td>{{ $alumno->direccion }}</td>
-                <td>{{ $alumno->usuario_plataforma }}</td>
-                <td>{{ $alumno->contrasena_plataforma }}</td>
                 <td>{{ $alumno->situacion_militar_definida }}</td>
             </tr>
             @endforeach
