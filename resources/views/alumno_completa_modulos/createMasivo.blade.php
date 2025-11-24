@@ -7,68 +7,68 @@
     <form action="{{ route('alumno_completa_modulos.storeMasivo') }}" method="POST">
         @csrf
 
-          <div class="mb-3">
-            
-        <table class="table table-bordered" id="myTable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre del alumno</th>
-                    <th>Seleccionar alumno</th>
-                </tr>
-            </thead>
+        <div class="mb-3">
 
-            <tbody>
-                @foreach($alumnos as $alumno)
-                <tr>
-                    <td>{{ $alumno->id }}</td>
-                    <td>{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
+            <table class="table table-bordered" id="myTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre del alumno</th>
+                        <th>Seleccionar alumno</th>
+                    </tr>
+                </thead>
 
-                    <td class="text-center">
-                        <input type="checkbox"
-                            name="alumno_ids[]"
-                            value="{{ $alumno->id }}">
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                <tbody>
+                    @foreach($alumnos as $alumno)
+                    <tr>
+                        <td>{{ $alumno->id }}</td>
+                        <td>{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
 
-          </div>
+                        <td class="text-center">
+                            <input type="checkbox"
+                                name="alumno_ids[]"
+                                value="{{ $alumno->id }}">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+        </div>
 
 
-            <div class="mb-3">
+        <div class="mb-3">
 
-    
+
 
             <table class="table table-bordered" id="myTabledos">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Curso</th>
-                    <th>Nombre del Módulo</th>
-                    <th>Seleccionar</th>
-                </tr>
-            </thead>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Curso</th>
+                        <th>Nombre del Módulo</th>
+                        <th>Seleccionar</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                @foreach($modulos as $modulo)
-                <tr>
-                    <td>{{ $modulo->id }}</td>
-                    <td>{{ $modulo->curso->nombre_curso }}</td>
-                    <td>{{ $modulo->nombre_modulo }}</td>
+                <tbody>
+                    @foreach($modulos as $modulo)
+                    <tr>
+                        <td>{{ $modulo->id }}</td>
+                        <td>{{ $modulo->curso->nombre_curso }}</td>
+                        <td>{{ $modulo->nombre_modulo }}</td>
 
-                    <td class="text-center">
-                        <input type="checkbox"
-                            name="modulo_ids[]"
-                            value="{{ $modulo->id }}">
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        <td class="text-center">
+                            <input type="checkbox"
+                                name="modulo_ids[]"
+                                value="{{ $modulo->id }}">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-            </div>
+        </div>
 
         <div class="mb-3">
             <label for="fecha_finalizacion" class="form-label">Fecha de Finalización</label>
@@ -98,25 +98,23 @@
 
 @section('js')
 <script>
-$(document).ready(function () {
-    $('#myTable').DataTable({
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-        }
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            }
+        });
     });
-});
-
 </script>
 
 
 <script>
-$(document).ready(function () {
-    $('#myTabledos').DataTable({
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-        }
+    $(document).ready(function() {
+        $('#myTabledos').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            }
+        });
     });
-});
-
 </script>
 @endsection

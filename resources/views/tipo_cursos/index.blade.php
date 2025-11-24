@@ -3,22 +3,12 @@
 @section('content')
 <div class="container" style="background-color:#f5f7fa; border-radius:10px; padding:25px;">
 
-    <!-- Título principal -->
     <h2 class="fw-bold mb-4" style="color:#004d40;">Tipos de Curso</h2>
 
-    <!-- Botón Nuevo -->
     <a href="{{ route('tipo_cursos.create') }}" class="btn" style="background-color:#5bc0de; color:white; font-weight:bold;">
         Nuevo Tipo de Curso
     </a>
 
-    <!-- Mensaje de éxito -->
-    @if(session('success'))
-    <div class="alert alert-success mt-3">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    <!-- Tabla -->
     <table class="table table-bordered mt-3 align-middle text-center" id="myTable">
         <thead class="table-light">
             <tr>
@@ -33,21 +23,13 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nombre_tipo }}</td>
                 <td>
-                    <a href="{{ route('tipo_cursos.edit', $item->id) }}"
-                        class="btn btn-warning btn-sm fw-bold"
-                        style="background-color: #f0ad4e; border-color:#eea236;">
+                    <a href="{{ route('tipo_cursos.edit', $item->id) }}" class="btn btn-warning btn-sm fw-bold">
                         Editar
                     </a>
 
-                    <form action="{{ route('tipo_cursos.destroy', $item->id) }}"
-                        method="POST"
-                        style="display:inline-block;">
+                    <form action="{{ route('tipo_cursos.destroy', $item->id) }}" method="POST" style="display:inline-block;">
                         @csrf
-                        <button type="submit"
-                            class="btn btn-danger btn-sm fw-bold"
-                            onclick="return confirm('¿Deseas eliminar este tipo de curso?')">
-                            Eliminar
-                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm fw-bold">Eliminar</button>
                     </form>
                 </td>
             </tr>
@@ -55,24 +37,62 @@
         </tbody>
     </table>
 
-    <!-- Botón Volver -->
-    <a href="{{ url()->previous() }}"
-        class="btn mt-3"
-        style="background-color:#6c757d; color:white; font-weight:bold;">
+    <a href="{{ url()->previous() }}" class="btn mt-3" style="background-color:#6c757d; color:white; font-weight:bold;">
         Volver
     </a>
 
 </div>
 @endsection
-@section('js')
+
+
+
+
+@section('scripts')
 <script>
-$(document).ready(function () {
-    $('#myTable').DataTable({
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+
+    $(document).ready(function() {
+
+        // DATATABLE
+        $('#myTable').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            }
+        });
+
+
+        // 🔥 PASO 3: variables desde PHP a JS — ARREGLADO!
+        const successMsg = "{{ session('success') }}";
+        const errorMsg   = "{{ session('error') }}";
+
+
+        // ALERTA GLOBAL (la pediste)
+        Swal.fire({
+            title: "Drag me!",
+            icon: "success",
+            draggable: true
+        });
+
+
+        // 🔥 ALERTA DE ÉXITO
+        if (successMsg) {
+            Swal.fire({
+                title: "Éxito",
+                text: successMsg,
+                icon: "success",
+                draggable: true
+            });
         }
+
+        // 🔥 ALERTA DE ERROR
+        if (errorMsg) {
+            Swal.fire({
+                title: "Error",
+                text: errorMsg,
+                icon: "error"
+            });
+        }
+
     });
-});
 
 </script>
 @endsection

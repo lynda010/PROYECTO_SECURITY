@@ -72,9 +72,6 @@ Route::get('/alumno_completa_modulos/createMasivo', [alumno_completa_moduloContr
 Route::post('/alumno_completa_modulos/storeMasivo', [alumno_completa_moduloController::class, 'storeMasivo'])->name('alumno_completa_modulos.storeMasivo');
 
 
-
-
-
 //rutas pago
 Route::get('/pagos', [pagoController::class, 'index'])->name('pagos.index');
 Route::get('/pagos/create', [pagoController::class, 'create'])->name('pagos.create');
@@ -100,3 +97,8 @@ Route::get('/alumnospdf', [alumnoController::class, 'verpdfalumnos'])->name('alu
 
 
 Route::get('/alumnos/pdf', [AlumnoController::class, 'generarPDF'])->name('alumnos.pdf');
+
+
+Route::get('/pagospdf', [PagoController::class, 'generarPdf'])->name('pagos.pdf');
+
+

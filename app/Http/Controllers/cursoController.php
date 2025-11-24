@@ -8,32 +8,26 @@ use Illuminate\Http\Request;
 
 class cursoController extends Controller
 {
-    /**
-     * Muestra la lista de cursos
-     */
+
     public function index()
     {
-        $cursos = curso::with('tipoCurso')->get(); // para mostrar tipo de curso fácilmente
+        $cursos = curso::with('tipoCurso')->get();
         return view('cursos.index', compact('cursos'));
     }
 
-    /**
-     * Muestra el formulario de creación
-     */
+
     public function create()
     {
         $tiposCurso = Tipo_Curso::all(); // ✅ Corregido
         return view('cursos.create', compact('tiposCurso'));
     }
 
-    /**
-     * Guarda un nuevo curso en la base de datos
-     */
+
     public function store(Request $request)
     {
 
 
-        // Validar los datos
+
         $request->validate([
             'nombre_curso' => 'required|string|max:100',
             'valor' =>         'required|numeric',
@@ -43,17 +37,15 @@ class cursoController extends Controller
 
 
 
-        // Guardar en la base de datos
+
         curso::create($request->all());
 
-        // Redirigir con mensaje de éxito
+
         return redirect()->route('cursos.index')
             ->with('success', 'Curso creado exitosamente.');
     }
 
-    /**
-     * Muestra el formulario de edición
-     */
+
     public function edit(string $id)
     {
         $curso = curso::findOrFail($id);
@@ -61,9 +53,7 @@ class cursoController extends Controller
         return view('cursos.edit', compact('curso', 'tiposCurso'));
     }
 
-    /**
-     * Actualiza un curso existente
-     */
+
     public function update(Request $request, string $id)
     {
         $curso = curso::findOrFail($id);
@@ -82,19 +72,17 @@ class cursoController extends Controller
             ->with('success', 'Curso actualizado exitosamente.');
     }
 
-    /**
-     * Elimina un curso
-     */
+    
     public function destroy($id)
-{
-    $curso = Curso::findOrFail($id);
+    {
+        $curso = Curso::findOrFail($id);
 
-    if ($curso->modulos()->count() > 0) {
-        return back()->with('error', 'No se puede eliminar este Curso porque tiene módulos asociados.');
+        if ($curso->modulos()->count() > 0) {
+            return back()->with('error', 'No se puede eliminar este Curso porque tiene módulos asociados.');
+        }
+
+        $curso->delete();
+
+        return back()->with('success', 'Curso eliminado correctamente.');
     }
-
-    $curso->delete();
-
-    return back()->with('success', 'Curso eliminado correctamente.');
-}
 }

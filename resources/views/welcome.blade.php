@@ -5,7 +5,7 @@
 @section('titleContent')
 
 <div class="text-center mb-4">
-    <h1 class="fw-bold text-white">Bienvenido al Sistema de Gestión de Security Academy</h1>
+    <h1 class="fw-bold text-white">BIENVENIDOS AL SISTEMA DE GESTION SECURITY ACADEMY</h1>
     <!-- 🔹 Imagen centrada -->
     <img src="{{ asset('images/logo.png') }}"
         alt="Logo"
@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    /* 🔹 Color de fondo verde medio sólido */
+    
     body,
     .content-wrapper {
         background-color: #2f6d46 !important;
@@ -32,7 +32,7 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    /* 🔹 Ajuste para el fondo de las tarjetas */
+    
     .card {
         border: none;
         border-radius: 15px;
@@ -60,7 +60,7 @@
         font-weight: 600;
     }
 
-    /* Colores de botones */
+    
     .btn-info {
         background-color: #00bcd4;
     }
@@ -94,7 +94,7 @@
         background-color: #673ab7;
     }
 
-    /* 🔹 Color del pie de página */
+    
     footer {
         background-color: #2f6d46 !important;
         color: white;
@@ -104,7 +104,7 @@
 <div class="container py-4">
     <div class="row g-4 justify-content-center">
 
-        <!-- Tipo de Curso -->
+        
         <div class="col-md-3">
             <div class="card tipo-curso h-100">
                 <div class="card-body">
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <!-- Alumno -->
+        
         <div class="col-md-3">
             <div class="card alumno h-100">
                 <div class="card-body">
@@ -128,7 +128,7 @@
             </div>
         </div>
 
-        <!-- Certificado -->
+        
         <div class="col-md-3">
             <div class="card certificado h-100">
                 <div class="card-body">
@@ -140,7 +140,7 @@
             </div>
         </div>
 
-        <!-- Curso -->
+        
         <div class="col-md-3">
             <div class="card curso h-100">
                 <div class="card-body">
@@ -152,7 +152,7 @@
             </div>
         </div>
 
-        <!-- Módulo -->
+        
         <div class="col-md-3">
             <div class="card modulo h-100">
                 <div class="card-body">
@@ -164,7 +164,7 @@
             </div>
         </div>
 
-        <!-- Alumno Completa Módulo -->
+        
         <div class="col-md-3">
             <div class="card alumno-modulo h-100">
                 <div class="card-body">
@@ -176,7 +176,7 @@
             </div>
         </div>
 
-        <!-- Pago -->
+        
         <div class="col-md-3">
             <div class="card pago h-100">
                 <div class="card-body">
@@ -188,7 +188,7 @@
             </div>
         </div>
 
-        <!-- Alumno Toma Curso -->
+        
         <div class="col-md-3">
             <div class="card alumno-curso h-100">
                 <div class="card-body">

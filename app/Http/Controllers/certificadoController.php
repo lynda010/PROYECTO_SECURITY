@@ -22,10 +22,10 @@ class certificadoController extends Controller
      */
     public function create()
     {
-        // Trae todos los alumnos registrados
+
         $alumnos = \App\Models\alumno::all();
 
-        // Envía la variable $alumnos a la vista
+
         return view('certificado.create', compact('alumnos'));
     }
 
@@ -57,18 +57,16 @@ class certificadoController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit($codigo_interno)
     {
-        // Buscar el certificado por su código interno
+
         $certificado = \App\Models\Certificado::findOrFail($codigo_interno);
 
-        // Obtener todos los alumnos
+
         $alumnos = \App\Models\Alumno::all();
 
-        // Enviar los datos a la vista
+
         return view('certificado.edit', compact('certificado', 'alumnos'));
     }
 

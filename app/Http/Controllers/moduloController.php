@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 
 class moduloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $modulos = Modulo::with('curso')->get();
@@ -20,21 +18,17 @@ class moduloController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        // Trae todos los cursos disponibles
+
         $cursos = curso::all();
 
-        // Envía ambas variables a la vista
+
         return view('modulos.create', compact('cursos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
 
@@ -52,17 +46,13 @@ class moduloController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         $modulo = Modulo::findOrFail($id);
@@ -71,34 +61,30 @@ class moduloController extends Controller
         return view('modulos.edit', compact('modulo', 'cursos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $id)
     {
-        // Validar los datos
+
         $validated = $request->validate([
             'nombre_modulo' => 'required|string|max:255',
             'curso_id' => 'required',
         ]);
 
-        // Buscar y actualizar el módulo
+
         $modulo = Modulo::findOrFail($id);
 
         $modulo->update($validated);
 
-        // Redirigir con mensaje de éxito
+
         return redirect()->route('modulos.index')
             ->with('success', 'Módulo actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy($id)
     {
         $modulo = Modulo::findOrFail($id);
-        
+
 
 
         if ($modulo->delete()) {

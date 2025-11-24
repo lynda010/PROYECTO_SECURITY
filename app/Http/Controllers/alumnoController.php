@@ -62,7 +62,7 @@ class alumnoController extends Controller
     {
         $alumno = Alumno::findOrFail($id);
 
-        // Cargar cursos + datos del pivote + módulos del curso
+        
         $cursos = $alumno->cursos()
             ->with('modulos')
             ->get();
@@ -86,7 +86,7 @@ class alumnoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // ✅ Primero validamos los datos correctamente
+        
         $validated = $request->validate([
             'tipo_documento' => 'required|string|max:50',
             'numero_documento' => 'required|string|max:50',
@@ -103,10 +103,10 @@ class alumnoController extends Controller
             'situacion_militar_definida' => 'required|boolean',
         ]);
 
-        // ✅ Luego actualizamos el registro
+        
         Alumno::findOrFail($id)->update($validated);
 
-        // ✅ Finalmente redirigimos con mensaje de éxito
+        
         return redirect()->route('alumnos.index')
             ->with('success', 'Alumno actualizado exitosamente.');
     }
@@ -144,15 +144,13 @@ class alumnoController extends Controller
 
     public function detalle($id)
     {
-        // Buscar alumno (lanza 404 si no existe)
+        
         $alumno = Alumno::findOrFail($id);
 
-        // Cargar cursos y módulos con la información del pivot
-        // Esto usa la relación belongsToMany definida en Alumno
-        // y se asegura de traer los modulos de cada curso.
+        
         $alumno->load(['cursos.modulos']);
 
-        // Obtener la colección de cursos (ya trae pivot)
+        
         $cursos = $alumno->cursos;
 
         return view('alumnos.detalle', compact('alumno', 'cursos'));

@@ -12,9 +12,7 @@ use function Laravel\Prompts\error;
 
 class alumno_completa_moduloController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
 {
 
@@ -27,9 +25,7 @@ class alumno_completa_moduloController extends Controller
     return view('alumno_completa_modulos.index', compact('alumno_completa_modulos'));
 }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function create()
     {
         $alumnos = Alumno::all();
@@ -38,9 +34,7 @@ class alumno_completa_moduloController extends Controller
         return view('alumno_completa_modulos.create', compact('alumnos', 'modulos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -64,17 +58,13 @@ class alumno_completa_moduloController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
     public function edit($id)
     {
 
@@ -84,9 +74,7 @@ class alumno_completa_moduloController extends Controller
         return view('alumno_completa_modulos.edit', compact('alumno_completa_modulo','alumnos','modulos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(Request $request, $id)
     {
 
@@ -97,9 +85,7 @@ class alumno_completa_moduloController extends Controller
             ->with('success', 'Registro actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy($id)
     {
 
@@ -128,16 +114,16 @@ class alumno_completa_moduloController extends Controller
         'fecha_finalizacion' => 'required|date',
         'estado' => 'required|string|max:50',
 
-        // varios alumnos
+        
         'alumno_ids' => 'required|array',
         'alumno_ids.*' => 'exists:alumno,id',
 
-        // varios módulos
+        
         'modulo_ids' => 'required|array',
         'modulo_ids.*' => 'exists:modulos,id',
     ]);
 
-    // Crear todos los registros combinando alumno × módulo
+    
     foreach ($request->alumno_ids as $alumno_id) {
         foreach ($request->modulo_ids as $modulo_id) {
             alumno_completa_modulo::create([

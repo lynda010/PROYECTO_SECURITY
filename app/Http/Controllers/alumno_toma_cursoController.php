@@ -12,30 +12,23 @@ use SebastianBergmann\Type\TrueType;
 
 class alumno_toma_cursoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $registros = alumno_toma_curso::all();
         return view('alumno_toma_cursos.index', compact('registros'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         $alumnos = Alumno::all();
         $cursos = Curso::all();
 
         return view('alumno_toma_cursos.create', compact('alumnos', 'cursos'));
-        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -44,7 +37,7 @@ class alumno_toma_cursoController extends Controller
             'curso_id' => 'required|integer',
         ]);
 
-        $validated['fecha_fin'] = now(); // ✅ fecha actual
+        $validated['fecha_fin'] = now();
         $validated['calificacion'] = 0;
         $validated['aprobado'] = 0;
 
@@ -56,33 +49,24 @@ class alumno_toma_cursoController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function show(string $id) {}
+
+
     public function edit($id)
     {
-        // Busca el registro que el alumno tomó
+
         $registro = \App\Models\Alumno_Toma_Curso::findOrFail($id);
 
-        // Trae los alumnos y cursos para los select
+
         $alumnos = \App\Models\Alumno::all();
         $cursos = \App\Models\Curso::all();
 
-        // Envía todo a la vista
+
         return view('alumno_toma_cursos.edit', compact('registro', 'alumnos', 'cursos'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
@@ -102,9 +86,7 @@ class alumno_toma_cursoController extends Controller
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         alumno_toma_curso::find($id)->delete();
@@ -146,40 +128,32 @@ class alumno_toma_cursoController extends Controller
     }
 
 
-   public static function calificarCurso($idAlumno, $cursoId)
+    public static function calificarCurso($idAlumno, $cursoId)
     {
-        // 1️⃣ Obtener cuántos módulos tiene el curso
+
         $totalModulosCurso = Modulo::where('curso_id', $cursoId)->count();
 
-        // 2️⃣ Contar cuántos módulos aprobó el alumno en ese curso
-        $modulosAprobados = alumno_completa_modulo::where('alumno_id', $idAlumno)
-                            ->where('estado', 'Aprobado')
-                            ->whereHas('modulo', function ($query) use ($cursoId) {
-                                $query->where('curso_id', $cursoId);
-                            })
-                            ->count();
 
-        // 3️⃣ Si aprobó todos → aprobar curso
+        $modulosAprobados = alumno_completa_modulo::where('alumno_id', $idAlumno)
+            ->where('estado', 'Aprobado')
+            ->whereHas('modulo', function ($query) use ($cursoId) {
+                $query->where('curso_id', $cursoId);
+            })
+            ->count();
+
+
         if ($modulosAprobados == $totalModulosCurso) {
 
             $cursoAlumno = alumno_toma_curso::where('alumno_id', $idAlumno)
-                            ->where('curso_id', $cursoId) 
-                            ->first();
+                ->where('curso_id', $cursoId)
+                ->first();
 
             if ($cursoAlumno) {
                 $cursoAlumno->calificacion = 10;
                 $cursoAlumno->aprobado = true;
                 $cursoAlumno->fecha_fin = now();
-                $cursoAlumno->save(); 
+                $cursoAlumno->save();
             }
         }
     }
-
-
-
-
-
-
-
-
 }
