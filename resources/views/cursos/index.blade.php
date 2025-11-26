@@ -1,14 +1,22 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('content')
-<div class="container">
+@section('title', 'Cursos')
 
-    <div> 
-        <a href="{{ route('cursos.create') }}" class="btn btn-primary mb-3">Nuevo Curso</a>
+
+@section('content_header')
+<div class="row">
+    <div class="col-3">
+
+
+        <a data-bs-toggle="tooltip" title="Registrar nuevo alumno" href="{{ route('alumnos.create') }}"
+            class="btn btn-outline-primary mt-2 mb-1 ml-2">
+            <i class="fas fa-plus fa-lg"></i> Nuevo Curso
+        </a>
     </div>
-    <h1>Lista de Cursos</h1>
-
-
+    <div class="col-6">
+        <h1 class="display-6 text-center">Gestión de Cursos</h1>
+    </div>
+</div>
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>

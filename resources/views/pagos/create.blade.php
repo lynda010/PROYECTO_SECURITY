@@ -9,7 +9,12 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-control" required>
+            <select name="alumno_id" id="alumno_id" class="form-control  @error('idalumno') is-invalid @enderror" required>
+                @error('alumno_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                @enderror
+                </div>
                 <option value="">Seleccione un alumno</option>
                 @foreach ($alumnos as $alumno)
                     <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
@@ -19,7 +24,12 @@
 
         <div class="mb-3">
             <label for="curso_id" class="form-label">Curso</label>
-            <select name="curso_id" id="curso_id" class="form-control" required>
+            <select name="curso_id" id="curso_id" class="form-control form-control  @error('idcurso') is-invalid @enderror " required>
+                @error('curso_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                @enderror
+                </div>
                 <option value="">Seleccione un curso</option>
                 @foreach ($cursos as $curso)
                     <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}</option>
@@ -29,17 +39,33 @@
 
         <div class="mb-3">
             <label for="fecha_pago" class="form-label">Fecha de Pago</label>
-            <input type="date" name="fecha_pago" id="fecha_pago" class="form-control" required>
+            <input type="date" name="fecha_pago" id="fecha_pago" class="form-control form-control form-control  @error('idfecha_pago') is-invalid @enderror" required>
+            @error('fecha_pago')
+            <div class="invalid-feedback">
+                {{ $message }}
+            @enderror
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="monto" class="form-label">Monto</label>
-            <input type="number" name="monto" id="monto" class="form-control" step="0.01" required>
+            <input type="number" name="monto" id="monto" class="form-control form-control form-control form-control  @error('idmonto') is-invalid @enderror" step="0.01" required>
+            @error('monto')
+            <div class="invalid-feedback">
+                {{ $message }}
+            @enderror
+            </div>
         </div>
 
         <div class="mb-3">
             <label for="metodo_pago" class="form-label">Método de Pago</label>
-            <select name="metodo_pago" id="metodo_pago" class="form-control" required>
+            <select name="metodo_pago" id="metodo_pago" class="form-control form-control form-control form-control  @error('idmetodo_pago') is-invalid @enderror" required>
+                @error('metodo_pago')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                @enderror
+                </div>
+
                 <option value="">Seleccione método</option>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia">Transferencia</option>
@@ -50,7 +76,12 @@
 
         <div class="mb-3">
             <label for="estado_pago" class="form-label">Estado del Pago</label>
-            <select name="estado_pago" id="estado_pago" class="form-control"required>
+            <select name="estado_pago" id="estado_pago" class="form-control form-control form-control form-control  @error('idestado_pago') is-invalid @enderror"required>
+                @error('estado_pago')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                    @enderror
+                </div>
                 <option value="">Seleccione estado</option>
                 <option value="Completado">Completado</option>
                 <option value="Pendiente">Pendiente</option>

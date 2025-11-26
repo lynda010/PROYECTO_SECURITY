@@ -1,10 +1,22 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
-@section('content')
-<div class="container">
-    <h1>Lista de Módulos</h1>
+@section('title', 'Modulos')
 
-    <a href="{{ route('modulos.create') }}" class="btn btn-primary mb-3">Nuevo Módulo</a>
+
+@section('content_header')
+<div class="row">
+    <div class="col-3">
+
+
+        <a data-bs-toggle="tooltip" title="Registrar nuevo alumno" href="{{ route('alumnos.create') }}"
+            class="btn btn-outline-primary mt-2 mb-1 ml-2">
+            <i class="fas fa-plus fa-lg"></i> Nuevo Modulo
+        </a>
+    </div>
+    <div class="col-6">
+        <h1 class="display-6 text-center">Gestión de Modulos</h1>
+    </div>
+</div>
 
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
@@ -42,8 +54,46 @@
         Volver
     </a>
 </div>
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+        });
+    });
+</script>
+@endif
+
 @endsection
 @section('js')
+<script>
+    function confirmarEliminacion(event) {
+        event.preventDefault();
+
+        const form = event.target.closest("form");
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
+    </script>
+    
+
 <script>
 $(document).ready(function () {
     $('#myTable').DataTable({
@@ -54,4 +104,5 @@ $(document).ready(function () {
 });
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

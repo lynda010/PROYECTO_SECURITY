@@ -9,7 +9,12 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-control" required>
+            <select name="alumno_id" id="alumno_id" class="form-control form-control form-control  @error('idAlumno') is-invalid @enderror" required>
+                @error('alumno_id')
+            <div class="nvalid-feedback">
+                {{ $message}}
+                @enderror
+            </div>
                 <option value="">Seleccione un alumno</option>
                 @foreach ($alumnos as $alumno)
                     <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
@@ -19,7 +24,12 @@
 
         <div class="mb-3">
             <label for="curso_id" class="form-label">Curso</label>
-            <select name="curso_id" id="curso_id" class="form-control" required>
+            <select name="curso_id" id="curso_id" class="form-control form-control form-control  @error('idCurso') is-invalid @enderror" required>
+                @error('Curso')
+            <div class="nvalid-feedback">
+                {{ $message}}
+                @enderror
+            </div>
                 <option value="">Seleccione un curso</option>
                 @foreach ($cursos as $curso)
                     <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}</option>
@@ -29,7 +39,12 @@
 
         <div class="mb-3">
             <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
-            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control" required>
+            <input type="date" name="fecha_inicio" id="fecha_inicio" class="form-control form-control form-control  @error('idfecha_inicio') is-invalid @enderror" required>
+            @error('Fecha de Inicio')
+            <div class="nvalid-feedback">
+                {{ $message}}
+                @enderror
+            </div>
         </div>
 
         <!--

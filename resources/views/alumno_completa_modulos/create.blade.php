@@ -9,7 +9,12 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-control"required>
+            <select name="alumno_id" id="alumno_id" class="form-control   @error('idAlumno') is-invalid @enderror" required>
+                @error('alumno_id')
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
                 <option value="">Seleccione un alumno</option>
 
                 @isset($alumnos)
@@ -29,10 +34,15 @@
 
         <div class="mb-3">
             <label for="modulo_id" class="form-label">Módulo</label>
-            <select name="modulo_id" id="modulo_id" class="form-control" required>
+            <select name="modulo_id" id="modulo_id" class="form-control  @error('idMódulo') is-invalid @enderror" required>
+                @error('modulo_id')
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
                 <option value="">Seleccione un módulo</option>
                 @foreach ($modulos as $modulo)
-                <option value="{{ $modulo->id }}"> {{ $modulo->curso->nombre_curso }} --  {{ $modulo->nombre_modulo }} </option>
+                <option value="{{ $modulo->id }}"> {{ $modulo->curso->nombre_curso }} -- {{ $modulo->nombre_modulo }} </option>
                 @endforeach
             </select>
         </div>
@@ -40,12 +50,23 @@
 
         <div class="mb-3">
             <label for="fecha_finalizacion" class="form-label">Fecha de Finalización</label>
-            <input type="date" name="fecha_finalizacion" id="fecha_finalizacion" class="form-control" required>
+            <input type="date" name="fecha_finalizacion" id="fecha_finalizacion" class="form-control   @error('idMódulo') is-invalid @enderror" required>
+            @error('fecha_finalizacion')
+            <div class="nvalid-feedback">
+                {{ $message}}
+                @enderror
+                </div>
         </div>
 
         <div class="mb-3">
             <label for="estado" class="form-label">Estado</label>
-            <select name="estado" id="estado" class="form-control" required>
+            <select name="estado" id="estado" class="form-control  @error('idestado') is-invalid @enderror" required>
+                @error('estado')
+            <div class="nvalid-feedback">
+                {{ $message}}
+                @enderror
+                </div>
+
                 <option value="">Seleccione estado</option>
                 <option value="Aprobado">Aprobado</option>
                 <option value="Reprobado">Reprobado</option>

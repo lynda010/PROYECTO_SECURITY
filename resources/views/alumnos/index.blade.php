@@ -2,13 +2,11 @@
 
 @section('title', 'Alumnos')
 
+
 @section('content_header')
 <div class="row">
     <div class="col-3">
-        <a data-bs-toggle="tooltip" title="Volver al menú principal" href="{{ route('alumnos.index') }}"
-            class="btn btn-outline-secondary mt-2 mb-1 ml-2">
-            <i class="fas fa-arrow-left fa-lg"></i> Volver
-        </a>
+
 
         <a data-bs-toggle="tooltip" title="Registrar nuevo alumno" href="{{ route('alumnos.create') }}"
             class="btn btn-outline-primary mt-2 mb-1 ml-2">
@@ -74,20 +72,38 @@
                             <i class="fas fa-pencil-alt"></i> Editar
                         </a>
 
-                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST"
-                            class="d-inline" onsubmit="confirmarEliminacion(event)">
+                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" class="d-inline">
                             @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                onsubmit="confirmarEliminacion(event)">
                                 <i class="fas fa-trash-alt"></i> Eliminar
                             </button>
                         </form>
+
                     </td>
 
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        <a data-bs-toggle="tooltip" title="Volver al menú principal" href="{{ route('alumnos.index') }}"
+            class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+            <i class="fas fa-arrow-left fa-lg"></i> Volver
+        </a>
     </div>
+    @if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
+        });
+    });
+</script>
+@endif
 </div>
 
 
@@ -112,14 +128,36 @@
 
 @section('js')
 <script>
-$(document).ready(function () {
-    $('#myTable').DataTable({
-        language: {
-            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-        }
-    });
-});
+    function confirmarEliminacion(event) {
+        event.preventDefault();
 
+        const form = event.target.closest("form");
+
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    }
 </script>
-@endsection
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            language: {
+                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+            }
+        });
+    });
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@endsection
