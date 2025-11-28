@@ -7,11 +7,6 @@
 <div class="row">
     <div class="col-3">
 
-
-        <a data-bs-toggle="tooltip" title="Registrar nuevo alumno" href="{{ route('alumno_completa_modulos.create') }}"
-            class="btn btn-outline-primary mt-2 mb-1 ml-2">
-            <i class="fas fa-plus fa-lg"></i> 
-        </a>
     </div>
     <div class="col-6">
         <h1 class="display-6 text-center"></h1>
@@ -21,10 +16,10 @@
     <h1>Registros de Alumnos que Completan Módulos</h1>
 
     <a href="{{ route('alumno_completa_modulos.create') }}" cl
-    ass="btn btn-primary mb-3">Nuevo Registro</a>
+        class="btn btn-outline-primary mt-2 mb-1 ml-2">Nuevo Registro</a>
 
 
-    <a href="{{ route('alumno_completa_modulos.createMasivo') }}" class="btn btn-primary mb-3">Nuevo Registro Masivo</a>
+    <a href="{{ route('alumno_completa_modulos.createMasivo') }}" class="btn btn-outline-primary mt-2 mb-1 ml-2">Nuevo Registro Masivo</a>
 
 
 
@@ -86,7 +81,8 @@
         </tbody>
     </table>
 
-    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">Volver</a>
+    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"> <i class="fas fa-arrow-left fa-lg"></i>Volver</a>
+
 </div>
 @if(session('success'))
 <script>
@@ -127,8 +123,8 @@
             }
         });
     }
-    </script>
-    <script>
+</script>
+<script>
     $(document).ready(function() {
         $('#myTable').DataTable({
             language: {

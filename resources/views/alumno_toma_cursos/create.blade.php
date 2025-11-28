@@ -11,13 +11,13 @@
             <label for="alumno_id" class="form-label">Alumno</label>
             <select name="alumno_id" id="alumno_id" class="form-control form-control form-control  @error('idAlumno') is-invalid @enderror" required>
                 @error('alumno_id')
-            <div class="nvalid-feedback">
-                {{ $message}}
-                @enderror
-            </div>
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
                 <option value="">Seleccione un alumno</option>
                 @foreach ($alumnos as $alumno)
-                    <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
+                <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
                 @endforeach
             </select>
         </div>
@@ -26,13 +26,13 @@
             <label for="curso_id" class="form-label">Curso</label>
             <select name="curso_id" id="curso_id" class="form-control form-control form-control  @error('idCurso') is-invalid @enderror" required>
                 @error('Curso')
-            <div class="nvalid-feedback">
-                {{ $message}}
-                @enderror
-            </div>
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
                 <option value="">Seleccione un curso</option>
                 @foreach ($cursos as $curso)
-                    <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}</option>
+                <option value="{{ $curso->id }}">{{ $curso->nombre_curso }}</option>
                 @endforeach
             </select>
         </div>
@@ -45,9 +45,9 @@
                 {{ $message}}
                 @enderror
             </div>
-        </div>
 
-        <!--
+
+            <!--
         <div class="mb-3">
             <label for="fecha_fin" class="form-label">Fecha de Finalización</label>
             <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" required>
@@ -67,11 +67,10 @@
             </select>
         </div>-->
 
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ route('alumno_toma_cursos.index') }}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{{ route('alumno_toma_cursos.index') }}" class="btn btn-secondary">Cancelar</a>
+
     </form>
-    <a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
-        Volver
-    </a>
 </div>
+
 @endsection

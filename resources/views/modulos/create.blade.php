@@ -15,28 +15,28 @@
                 {{ $message }}
                 @enderror
             </div>
-       
-
-        <div class="mb-3">
-            <label for="modulo_id" class="form-label">Curso y Módulo</label>
-            <select name="curso_id" id="curso_id" class="form-control   @error('idcurso_modulo') is-invalid @enderror">
-                @error('curso_modulo')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                    @enderror
-                </div>
-
-                @foreach($cursos as $curso)
-                <option value="{{ $curso->id }}">{{ $curso->nombre_curso }} </option>
-                @endforeach
 
 
-            </select>
-        </div>
+            <div class="mb-3">
+                <label for="modulo_id" class="form-label">Curso y Módulo</label>
+                <select name="curso_id" id="curso_id" class="form-control   @error('idcurso_modulo') is-invalid @enderror">
+                    @error('curso_modulo')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                        @enderror
+                    </div>
 
-        <button type="submit" class="btn btn-success">Guardar</button>
-        <a href="{{ route('modulos.index') }}" class="btn btn-secondary">Cancelar</a>
+                    @foreach($cursos as $curso)
+                    <option value="{{ $curso->id }}">{{ $curso->nombre_curso }} </option>
+                    @endforeach
+
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{{ route('modulos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
- </div>
+
 @endsection

@@ -54,7 +54,7 @@
         </tbody>
     </table>
 
-    <a href="{{ url()->previous() }}" class="btn mt-3" style="background-color:#6c757d; color:white; font-weight:bold;">
+    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2" ><i class="fas fa-arrow-left fa-lg"></i>
         Volver
     </a>
 

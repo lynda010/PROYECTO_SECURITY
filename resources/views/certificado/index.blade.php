@@ -6,7 +6,7 @@
 @section('content_header')
 <div class="row">
     <div class="col-3">
-        <a data-bs-toggle="tooltip" title="Registrar nuevo Certificado" href="{{ route('alumnos.create') }}"
+        <a data-bs-toggle="tooltip" title="Registrar nuevo Certificado" href="{{ route('certificados.create') }}"
             class="btn btn-outline-primary mt-2 mb-1 ml-2">
             <i class="fas fa-plus fa-lg"></i> Nuevo Certificado
         </a>
@@ -54,7 +54,7 @@
         @endforeach
     </tbody>
 </table>
-<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
     Volver
 </a>
 </div>

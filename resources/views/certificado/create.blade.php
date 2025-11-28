@@ -71,20 +71,19 @@
                                     <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
                                     @endforeach
                                 </select>
+                            </div>
 
 
-                                <button type="submit" class="btn btn-success">Guardar</button>
-                                <br>
+
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a href="{{ route('certificados.index') }}" class="btn btn-secondary">Cancelar</a>
 
 
-                                <a href="{{ route('certificados.index') }}" class="btn btn-secondary">Cancelar</a>
-
-                                <br>
 
 
     </form>
-    <a href="{{ url()->previous() }}" class="btn btn-secondary"> Volver
-
-    </a>
 </div>
+
+
+
 @endsection

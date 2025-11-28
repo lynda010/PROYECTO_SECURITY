@@ -6,7 +6,7 @@
 
 <div class="text-center mb-4">
     <h1 class="fw-bold text-white">BIENVENIDOS AL SISTEMA DE GESTION SECURITY ACADEMY</h1>
-    <!-- 🔹 Imagen centrada -->
+    
     <img src="{{ asset('images/logo.png') }}"
         alt="Logo"
         style="width: 180px;               /* tamaño más grande */

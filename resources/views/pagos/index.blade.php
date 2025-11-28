@@ -1,20 +1,22 @@
 @extends('adminlte::page')
 
-@section('title', 'Alumnos')
+@section('title', 'Pagos')
 
 
 @section('content_header')
 <div class="row">
     <div class="col-3">
-
-
+        <a data-bs-toggle="tooltip" title="Registrar nuevo Pago" href="{{ route('pagos.create') }}"
+            class="btn btn-outline-primary mt-2 mb-1 ml-2">
+            <i class="fas fa-plus fa-lg"></i> Nuevo Pago
+        </a>
 
     </div>
     <div class="col-6">
         <h1 class="display-6 text-center">Gestión de Pagos</h1>
     </div>
 </div>
-<a href="{{ route('pagos.create') }}" class="btn btn-primary mb-3">Nuevo Pago</a>
+
 
 
 @if(session('success'))
@@ -71,8 +73,10 @@
     </tbody>
 
 </table>
-<a href="{{ url()->previous() }}" class="btn btn-secondary mt-3">
+<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
     Volver
+</a>
+
 </a>
 </div>
 @endsection
