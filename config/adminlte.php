@@ -358,6 +358,11 @@ return [
             'url' => '/pagos',
             'icon' => 'fas fa-money-bill-wave',
         ],
+        [
+            'text' => 'Grupos',
+            'url' => '/grupos',
+            'icon' => 'fas fa-tasks',
+        ],
 
         ['header' => 'AMINISTRADOR'],
 
@@ -371,6 +376,8 @@ return [
             'url' => '/alumno_completa_modulos',
             'icon' => 'fas fa-tasks',
         ],
+
+
 
     ],
 

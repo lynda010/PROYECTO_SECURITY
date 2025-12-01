@@ -5,12 +5,15 @@ use App\Http\Controllers\alumno_toma_cursoController;
 use App\Http\Controllers\alumnoController;
 use App\Http\Controllers\certificadoController;
 use App\Http\Controllers\cursoController;
+use App\Http\Controllers\GrupoController;
 use App\Http\Controllers\modeloController;
 use App\Http\Controllers\moduloController;
 use App\Http\Controllers\pagoController;
 use App\Http\Controllers\Tipo_CursoController;
 use App\Http\Controllers\TipoCursoController;
 use App\Models\modulo;
+
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -90,6 +93,16 @@ Route::post('/alumno_toma_cursos/destroy/{id}', [alumno_toma_cursoController::cl
 Route::get('/alumno_toma_cursos/masivo', [alumno_toma_cursoController::class, 'createMasivo'])->name('alumno_toma_cursos.create.masivo');
 Route::post('/alumno_toma_cursos/storemasivo', [alumno_toma_cursoController::class, 'storeMasivo'])->name('alumno_toma_cursos.storemasivo');
 
+//rutas grupo
+Route::get('/grupos', [GrupoController::class, 'index'])->name('grupos.index');
+Route::get('/grupos/create', [GrupoController::class, 'create'])->name('grupos.create');
+Route::post('/grupos', [GrupoController::class, 'store'])->name('grupos.store');
+Route::get('/grupos/{id}/edit', [GrupoController::class, 'edit'])->name('grupos.edit');
+Route::put('/grupos/{id}', [GrupoController::class, 'update'])->name('grupos.update');
+Route::delete('/grupos/{id}', [GrupoController::class, 'destroy'])->name('grupos.destroy');
+
+
+
 //ruta ver pdf
 
 // Ver PDF de alumnos
@@ -100,5 +113,3 @@ Route::get('/alumnos/pdf', [AlumnoController::class, 'generarPDF'])->name('alumn
 
 
 Route::get('/pagospdf', [PagoController::class, 'generarPdf'])->name('pagos.pdf');
-
-

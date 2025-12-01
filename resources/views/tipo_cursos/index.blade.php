@@ -6,9 +6,9 @@
 <div class="row">
     <div class="col-3">
         <a data-bs-toggle="tooltip" title="Registrar nuevo tipo de curso" href="{{ route('tipo_cursos.create') }}"></a>
-            
-            
-      
+
+
+
     </div>
     <div class="col-6">
         <h1 class="display-6 text-center">Gestión de Tipos de Curso</h1>
@@ -54,7 +54,7 @@
         </tbody>
     </table>
 
-    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2" ><i class="fas fa-arrow-left fa-lg"></i>
+    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
         Volver
     </a>
 
