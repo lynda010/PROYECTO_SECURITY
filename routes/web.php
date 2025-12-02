@@ -71,9 +71,9 @@ Route::post('/alumno_completa_modulos/store', [alumno_completa_moduloController:
 Route::get('/alumno_completa_modulos/edit/{id}', [alumno_completa_moduloController::class, 'edit'])->name('alumno_completa_modulos.edit');
 Route::post('/alumno_completa_modulos/update/{id}', [alumno_completa_moduloController::class, 'update'])->name('alumno_completa_modulo.update');
 Route::post('/alumno_completa_modulos/destroy/{id}', [alumno_completa_moduloController::class, 'destroy'])->name('alumno_completa_modulos.destroy');
-Route::get('/alumno_completa_modulos/createMasivo', [alumno_completa_moduloController::class, 'createMasivo'])->name('alumno_completa_modulos.createMasivo');
+Route::get('/alumno_completa_modulos/createMasivo/{idcurso}/{idalumno}', [alumno_completa_moduloController::class, 'createMasivo'])->name('alumno_completa_modulos.createMasivo');
 Route::post('/alumno_completa_modulos/storeMasivo', [alumno_completa_moduloController::class, 'storeMasivo'])->name('alumno_completa_modulos.storeMasivo');
-
+Route::get('/alumno_completa_modulos/createMasivo/{idgrupo}', [alumno_completa_moduloController::class, 'createMasivogrupo'])->name('alumno_completa_modulos.createMasivogrupo');
 
 //rutas pago
 Route::get('/pagos', [pagoController::class, 'index'])->name('pagos.index');

@@ -74,8 +74,11 @@
 @endif
 
 @endsection
-@section('js')
 
+
+
+
+@section('js')
 <script>
     function confirmarEliminacion(event) {
         event.preventDefault();
@@ -98,54 +101,15 @@
         });
     }
 </script>
-
-
-
-@section('scripts')
 <script>
     $(document).ready(function() {
-
-        // DATATABLE
         $('#myTable').DataTable({
             language: {
                 url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
             }
         });
-
-
-        // 🔥 PASO 3: variables desde PHP a JS — ARREGLADO!
-        const successMsg = "{{ session('success') }}";
-        const errorMsg = "{{ session('error') }}";
-
-
-        // ALERTA GLOBAL (la pediste)
-        Swal.fire({
-            title: "Drag me!",
-            icon: "success",
-            draggable: true
-        });
-
-
-        // 🔥 ALERTA DE ÉXITO
-        if (successMsg) {
-            Swal.fire({
-                title: "Éxito",
-                text: successMsg,
-                icon: "success",
-                draggable: true
-            });
-        }
-
-        // 🔥 ALERTA DE ERROR
-        if (errorMsg) {
-            Swal.fire({
-                title: "Error",
-                text: errorMsg,
-                icon: "error"
-            });
-        }
-
     });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endsection

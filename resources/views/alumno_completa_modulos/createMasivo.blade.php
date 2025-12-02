@@ -7,6 +7,7 @@
     <form action="{{ route('alumno_completa_modulos.storeMasivo') }}" method="POST">
         @csrf
 
+
         <div class="mb-3">
 
             <table class="table table-bordered" id="myTable">

@@ -58,15 +58,13 @@ class Alumno extends Model
 }
 
 
-
-
-
-
-
-    public function modulosCompletados()
+public function modulosCompletados()
     {
         return $this->belongsToMany(modulo::class, 'alumno_completa_modulo', 'id_alumno', 'id_modulo')
             ->withPivot('fecha_finalizacion', 'estado')
             ->withTimestamps();
     }
+
+
+
 }

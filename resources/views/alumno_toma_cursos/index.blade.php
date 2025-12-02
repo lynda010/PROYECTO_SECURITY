@@ -17,16 +17,33 @@
 <a href="{{ route('alumno_toma_cursos.create.masivo') }}" class="btn btn-outline-primary mt-2 mb-1 ml-2">Registro Masivo</a>
 
 
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
+<div class="row mt-3 mb-2">
+    <div class="col-4">
+    <select id="filtroGrupo" class="form-control">
+        <option value="">-- Filtrar por grupo --</option>
+        @foreach ($registros->pluck('grupo')->unique('id') as $grupo)
+            <option value="{{ $grupo->id }}">{{ $grupo->nombre_grupo }}</option>
+        @endforeach
+    </select>
+</div>
+
+
+    <div class="col-md-4 d-flex align-items-end">
+        <a id="btnCalificarGrupo"  class="btn btn-success w-100">
+            Calificar Módulos por grupo
+        </a>
+    </div>
+</div>
+
+
 
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Alumno</th>
+            <th>grupo</th>
             <th>Curso</th>
+            <th>Alumno</th>
             <th>Fecha Inicio</th>
             <th>Fecha Fin</th>
             <th>Calificación</th>
@@ -38,18 +55,30 @@
         @foreach ($registros as $registro)
         <tr>
             <td>{{ $registro->id }}</td>
-            <td>{{ $registro->alumno->nombres }} {{ $registro->alumno->apellidos }}</td>
+            <td>{{ $registro->grupo->nombre_grupo}}</td>
             <td>{{ $registro->curso->nombre_curso }}</td>
+            <td>{{ $registro->alumno->nombres }} {{ $registro->alumno->apellidos }}</td>
             <td>{{ $registro->fecha_inicio }}</td>
             <td>{{ $registro->fecha_fin }}</td>
             <td>{{ $registro->calificacion }}</td>
             <td>{{ $registro->aprobado ? 'Sí' : 'No' }}</td>
             <td>
-                <a href="{{ route('alumno_toma_cursos.edit', $registro->id) }}" class="btn btn-warning btn-sm">Editar</a>
+
+                <a href="{{ route('alumno_completa_modulos.createMasivo', [
+                        $registro->curso->id,
+                        $registro->alumno->id
+                    ]) }}" 
+                    class="btn btn-warning btn-sm">
+                    Calificar Módulos
+                </a>
+
+
+                <a href="{{ route('alumno_toma_cursos.edit', $registro->id) }}" class="btn btn-success btn-sm">Editar</a>
                 <form action="{{ route('alumno_toma_cursos.destroy', $registro->id) }}" method="POST" style="display:inline-block;">
                     @csrf
                     <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                 </form>
+
             </td>
         </tr>
         @endforeach
@@ -97,14 +126,36 @@
     }
 </script>
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-            }
-        });
+$(document).ready(function() {
+
+    // DataTable
+    var table = $('#myTable').DataTable({
+        language: {
+            url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+        }
     });
+
+    // Filtro por grupo
+    $('#filtroGrupo').on('change', function () {
+        var grupoId = $(this).val();
+
+        // Filtro de la tabla
+        table.column(1).search($(this).find('option:selected').text()).draw();
+
+        // Habilitar y actualizar botón
+        if(grupoId){
+            $('#btnCalificarGrupo')
+                .removeClass('disabled')
+                .attr('href', '/alumno_completa_modulos/createMasivo/' + grupoId);
+        } else {
+            $('#btnCalificarGrupo').addClass('disabled').removeAttr('href');
+        }
+    });
+
+});
 </script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 

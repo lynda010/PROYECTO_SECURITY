@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Alumno;
 use App\Models\alumno_completa_modulo;
+use App\Models\alumno_toma_curso;
 use App\Models\modulo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -18,8 +19,7 @@ class alumno_completa_moduloController extends Controller
 
     $alumno_completa_modulos = \App\Models\alumno_completa_modulo::with([
         'alumno',
-        'modulo.curso',    
-        
+        'modulo.curso',
     ])->get();
 
     return view('alumno_completa_modulos.index', compact('alumno_completa_modulos'));
@@ -99,13 +99,51 @@ class alumno_completa_moduloController extends Controller
 
 
 
-    public function createMasivo()
+    public function createMasivo($idcurso, $idalumno)
     {
-        $alumnos = Alumno::all();
-        $modulos = modulo::with('curso')->get();
+        // Traer el alumno. findOrFail lanza excepción si no existe.
+        $alumno = Alumno::findOrFail($idalumno);
 
+        // Convertir a colección para poder iterar en la vista, incluso si es un solo registro
+        $alumnos = collect([$alumno]);
+
+        // Traer los módulos del curso
+        $modulos = Modulo::where('curso_id', $idcurso)->get();
+
+
+
+        // Retornar la vista con los datos
         return view('alumno_completa_modulos.createMasivo', compact('alumnos', 'modulos'));
     }
+
+
+        public function createMasivogrupo($idgrupo)
+        {
+            // Traer todos los registros de alumnos del grupo seleccionado con sus cursos
+            $registros = alumno_toma_curso::with(['alumno', 'curso', 'grupo'])
+                            ->where('grupo_id', $idgrupo)
+                            ->get();
+
+            // Obtener solo los alumnos como colección
+            $alumnos = $registros->pluck('alumno')->unique('id');
+
+            
+            $cursos = $registros->pluck('curso')->unique('id');
+
+            // 4. Obtener todos los módulos de esos cursos
+            $modulos = Modulo::whereIn('curso_id', $cursos->pluck('id'))->get();
+
+
+            // Pasar a la vista
+            return view('alumno_completa_modulos.createMasivo', compact('alumnos', 'modulos'));
+        }
+
+
+
+
+
+
+
 
 
     public function storeMasivo(Request $request)
@@ -146,6 +184,22 @@ class alumno_completa_moduloController extends Controller
 
 
 
+
+    public static function asignarModulo($idAlumno, $idcurso)
+    {
+        
+        $modulos = modulo::where('curso_id', $idcurso)->get();
+
+        foreach ($modulos as $modulo) {
+            alumno_completa_modulo::create([
+                'fecha_finalizacion' => now(),
+                'estado' => 'En curso',
+                'alumno_id' => $idAlumno,
+                'modulo_id' => $modulo->id,
+            ]);
+        }
+
+    }
 
 
 }

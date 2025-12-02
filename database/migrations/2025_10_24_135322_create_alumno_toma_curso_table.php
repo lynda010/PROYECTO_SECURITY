@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('alumno_id')->references('id')->on('alumno');
             $table->unsignedBigInteger('curso_id');
             $table->foreign('curso_id')->references('id')->on('curso');
+            $table->unsignedBigInteger('grupo_id');
+            $table->foreign('grupo_id')->references('id')->on('grupos');
             $table->timestamps();
         });
     }

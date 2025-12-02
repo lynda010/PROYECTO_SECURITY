@@ -15,4 +15,12 @@ class Grupo extends Model
     // Campos asignables
     protected $fillable = ['nombre_grupo', 'descripcion'];
 
+
+
+
+    public function alumno_completa_modulo()
+    {
+        return $this->hasMany(alumno_toma_curso::class);
+    }
+
 }

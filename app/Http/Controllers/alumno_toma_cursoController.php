@@ -6,6 +6,7 @@ use App\Models\Alumno;
 use App\Models\alumno_completa_modulo;
 use App\Models\alumno_toma_curso;
 use App\Models\Curso;
+use App\Models\Grupo;
 use App\Models\Modulo;
 use Illuminate\Http\Request;
 use SebastianBergmann\Type\TrueType;
@@ -24,8 +25,9 @@ class alumno_toma_cursoController extends Controller
     {
         $alumnos = Alumno::all();
         $cursos = Curso::all();
+        $grupos = Grupo::all();
 
-        return view('alumno_toma_cursos.create', compact('alumnos', 'cursos'));
+        return view('alumno_toma_cursos.create', compact('alumnos', 'cursos','grupos'));
     }
 
 
@@ -35,6 +37,7 @@ class alumno_toma_cursoController extends Controller
             'fecha_inicio' => 'required|date',
             'alumno_id' => 'required|integer',
             'curso_id' => 'required|integer',
+            'grupo_id' => 'required|integer',
         ]);
 
         $validated['fecha_fin'] = now();
@@ -44,13 +47,14 @@ class alumno_toma_cursoController extends Controller
 
         alumno_toma_curso::create($validated);
 
+        alumno_completa_moduloController::asignarModulo($request->alumno_id, $request->curso_id);
+
+
+
         return redirect()->route('alumno_toma_cursos.index')
             ->with('success', 'El registro del alumno en el curso se creó exitosamente.');
     }
 
-
-
-    public function show(string $id) {}
 
 
     public function edit($id)
@@ -98,34 +102,45 @@ class alumno_toma_cursoController extends Controller
     {
         $alumnos = Alumno::all();
         $cursos = Curso::all();
+        $grupos = Grupo::all();
 
-        return view('alumno_toma_cursos.createmasivo', compact('alumnos', 'cursos'));
+        return view('alumno_toma_cursos.createmasivo', compact('alumnos', 'cursos','grupos'));
     }
 
 
-    public function storeMasivo(Request $request)
-    {
-        $validated = $request->validate([
-            'fecha_inicio' => 'required|date',
-            'curso_id' => 'required|integer',
-            'alumno_ids' => 'required|array',
-            'alumno_ids.*' => 'integer'
-        ]);
 
-        foreach ($validated['alumno_ids'] as $alumno_id) {
+    public function storeMasivo(Request $request)
+{
+    $validated = $request->validate([
+        'fecha_inicio' => 'required|date',
+        'grupo_id' => 'required|integer',
+        'curso_ids' => 'required|array',
+        'curso_ids.*' => 'integer',
+        'alumno_ids' => 'required|array',
+        'alumno_ids.*' => 'integer',
+    ]);
+
+    foreach ($validated['alumno_ids'] as $alumno_id) {  
+        foreach ($validated['curso_ids'] as $curso_id) {
+
             alumno_toma_curso::create([
                 'alumno_id' => $alumno_id,
-                'curso_id' => $validated['curso_id'],
+                'grupo_id' => $validated['grupo_id'],
+                'curso_id' => $curso_id,
                 'fecha_inicio' => $validated['fecha_inicio'],
                 'fecha_fin' => now(),
                 'calificacion' => 0,
                 'aprobado' => 0,
             ]);
-        }
 
-        return redirect()->route('alumno_toma_cursos.index')
-            ->with('success', 'Registros masivos creados exitosamente.');
+            alumno_completa_moduloController::asignarModulo($request->alumno_id, $request->curso_id);
+        }
     }
+
+    return redirect()->route('alumno_toma_cursos.index')
+        ->with('success', 'Registros masivos creados exitosamente.');
+}
+
 
 
     public static function calificarCurso($idAlumno, $cursoId)

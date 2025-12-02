@@ -15,17 +15,12 @@
 <div class="container">
     <h1>Registros de Alumnos que Completan Módulos</h1>
 
+
     <a href="{{ route('alumno_completa_modulos.create') }}" cl
         class="btn btn-outline-primary mt-2 mb-1 ml-2">Nuevo Registro</a>
 
 
-    <a href="{{ route('alumno_completa_modulos.createMasivo') }}" class="btn btn-outline-primary mt-2 mb-1 ml-2">Nuevo Registro Masivo</a>
 
-
-
-    @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
 
     <table class="table table-bordered table-striped" id="myTable">
         <thead>
@@ -43,6 +38,7 @@
             @forelse ($alumno_completa_modulos as $alumno_completa_modulo)
             <tr>
                 <td>{{ $alumno_completa_modulo->id }}</td>
+
 
                 {{-- Alumno (controla si existe la relación) --}}
                 <td>

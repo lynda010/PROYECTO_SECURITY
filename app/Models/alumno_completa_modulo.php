@@ -12,10 +12,12 @@ class alumno_completa_modulo extends Model
         'alumno_id',
         'modulo_id'
     ];
+
     public function alumno()
     {
         return $this->belongsTo(alumno::class);
     }
+    
     public function modulo()
     {
         return $this->belongsTo(modulo::class);

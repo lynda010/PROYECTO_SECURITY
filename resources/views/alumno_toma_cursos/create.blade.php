@@ -7,6 +7,24 @@
     <form action="{{ route('alumno_toma_cursos.store') }}" method="POST">
         @csrf
 
+
+           <div class="mb-3">
+            <label for="grupo_id" class="form-label">Grupo</label>
+            <select name="grupo_id" id="grupo_id" class="form-control form-control form-control  @error('grupo_id') is-invalid @enderror" required>
+                @error('grupo_id')
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
+                <option value="">Seleccione un alumno</option>
+                @foreach ($grupos as $grupo)
+                <option value="{{ $grupo->id }}">{{ $grupo->nombre_grupo }}</option>
+                @endforeach
+            </select>
+        </div>
+
+
+
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
             <select name="alumno_id" id="alumno_id" class="form-control form-control form-control  @error('idAlumno') is-invalid @enderror" required>
