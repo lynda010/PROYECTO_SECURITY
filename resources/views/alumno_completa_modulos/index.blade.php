@@ -63,10 +63,16 @@
                 <td>
                     <a href="{{ route('alumno_completa_modulos.edit', $alumno_completa_modulo->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
-                    <form action="{{ route('alumno_completa_modulos.destroy', $alumno_completa_modulo->id) }}" method="POST" style="display:inline-block;">
+                    <form id="formEliminarAlumnoModulo{{ $alumno_completa_modulo->id }}"
+                        action="{{ route('alumno_completa_modulos.destroy', $alumno_completa_modulo->id) }}"
+                        method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar registro?')">Eliminar</button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="confirmarEliminacionAlumnoModulo({{ $alumno_completa_modulo->id }})">
+                            Eliminar
+                        </button>
                     </form>
+
                 </td>
             </tr>
             @empty
@@ -77,7 +83,9 @@
         </tbody>
     </table>
 
-    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"> <i class="fas fa-arrow-left fa-lg"></i>Volver</a>
+    <a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+        <i class="fas fa-arrow-left fa-lg"></i> Volver
+    </a>
 
 </div>
 @if(session('success'))
@@ -99,27 +107,24 @@
 @section('js')
 
 <script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
-
-        const form = event.target.closest("form");
-
+    function confirmarEliminacionAlumnoModulo(id) {
         Swal.fire({
-            title: '¿Estás seguro?',
+            title: "¿Estás seguro?",
             text: "¡No podrás revertir esto!",
-            icon: 'warning',
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit();
+                document.getElementById('formEliminarAlumnoModulo' + id).submit();
             }
         });
     }
 </script>
+
 <script>
     $(document).ready(function() {
         $('#myTable').DataTable({

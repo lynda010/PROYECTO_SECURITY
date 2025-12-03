@@ -81,9 +81,28 @@ class GrupoController extends Controller
      */
     public function destroy($id)
     {
-        $grupo = Grupo::findOrFail($id);
-        $grupo->delete();
+        Grupo::findorFail($id)->delete();
 
-        return redirect()->route('grupos.index')->with('success');
+        return redirect()->route('grupos.index')
+            ->with('success', 'Grupo eliminado exitosamente.');
     }
+
+    /**
+     * Mostrar detalle del grupo
+     */
+    public function detalle($id)
+{
+    // Obtener grupo
+    $grupo = Grupo::findOrFail($id);
+
+    // Alumnos desde la tabla pivote
+    $alumnos = $grupo->alumnos;
+
+    // Contar alumnos
+    $totalAlumnos = $grupo->alumnos()->count();
+
+    return view('grupos.detalle', compact('grupo', 'alumnos', 'totalAlumnos'));
+}
+
+
 }

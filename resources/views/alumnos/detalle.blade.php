@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-    <a href="{{ route('alumnos.index') }}" class="btn btn-secondary mb-3">← Volver</a>
+    
 
     <h2>Detalle del Alumno</h2>
 
@@ -97,8 +97,11 @@
 
                 </div>
             </div>
+            
         @endforeach
     @endif
-
+<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+        <i class="fas fa-arrow-left fa-lg"></i> Volver
+    </a>
 </div>
 @endsection

@@ -46,33 +46,61 @@
             <td>{{ $curso->tipoCurso->nombre_tipo }}</td>
             <td>
                 <a href="{{ route('cursos.edit', $curso->id) }}" class="btn btn-warning btn-sm">Editar</a>
-                <form action="{{ route('cursos.destroy', $curso->id) }}" method="POST" style="display:inline-block;">
+                <form id="formEliminarCurso{{ $curso->id }}"
+                    action="{{ route('cursos.destroy', $curso->id) }}"
+                    method="POST"
+                    style="display:inline-block;">
                     @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+
+                    <button type="button" class="btn btn-danger btn-sm" onclick="confirmarEliminacionCurso({{ $curso->id }})">
+                        Eliminar
+                    </button>
                 </form>
-            </td>
+
         </tr>
         @endforeach
     </tbody>
 </table>
-<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
-    <i class="fas fa-arrow-right fa-lg"></i>
-    Siguiente
+<a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+    <i class="fas fa-arrow-left fa-lg"></i> Volver
 </a>
 
 @endsection
-
+@if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Atención!',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'Aceptar',
+            });
+        });
+    </script>
+    @endif
 
 
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+    function confirmarEliminacionCurso(id) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('formEliminarCurso' + id).submit();
             }
         });
-    });
+    }
 </script>
+
 @endsection

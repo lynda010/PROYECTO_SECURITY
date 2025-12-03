@@ -13,14 +13,6 @@
     </div>
 </div>
 
-{{-- ALERTA DE ÉXITO --}}
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-    <strong>✔ Éxito:</strong> {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-</div>
-@endif
-
 {{-- ALERTA DE ERROR --}}
 @if(session('error'))
 <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
@@ -49,6 +41,12 @@
                 <td>{{ $grupo->nombre_grupo }}</td>
                 <td>{{ $grupo->descripcion }}</td>
                 <td>
+
+
+
+
+
+
                     {{-- EDITAR --}}
                     <a href="{{ route('grupos.edit', $grupo->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
@@ -56,9 +54,18 @@
                     <form action="{{ route('grupos.destroy', $grupo->id) }}" method="POST"
                         style="display:inline-block;" onsubmit="confirmarEliminacion(event)">
                         @csrf
-                        @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
+                    <a href="{{ route('grupos.detalle', $grupo->id) }}"
+                        class="btn btn-sm"
+                        style="background-color:#0d6efd; color:white;">
+                        Ver Detalle
+                    </a>
+
+
+
+
+
 
                 </td>
             </tr>
@@ -71,76 +78,76 @@
     </a>
 
 
-@if(session('success'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'success',
-            title: '¡Éxito!',
-            text: '{{ session("success") }}',
-            confirmButtonText: 'Aceptar',
-            timer: 3000
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session("success") }}',
+                confirmButtonText: 'Aceptar',
+                timer: 3000
+            });
         });
-    });
-</script>
-@endif
+    </script>
+    @endif
 
 
 
-@if(session('success'))
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'success',
-            title: '¡Éxito!',
-            text: '{{ session("success") }}',
-            confirmButtonText: 'Aceptar',
-            timer: 3000
+    @if(session('success'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session("success") }}',
+                confirmButtonText: 'Aceptar',
+                timer: 3000
+            });
         });
-    });
-</script>
-@endif
+    </script>
+    @endif
 
-@endsection
-
+    @endsection
 
 
-@section('js')
-<script>
-    function confirmarEliminacion(event) {
-        event.preventDefault();
 
-        const form = event.target.closest('form');
+    @section('js')
+    <script>
+        function confirmarEliminacion(event) {
+            event.preventDefault();
 
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "Esta acción no se puede revertir.",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
+            const form = event.target.closest('form');
+
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "Esta acción no se puede revertir.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
+
+
+    {{-- DATATABLES --}}
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                language: {
+                    url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                }
+            });
         });
-    }
-</script>
+    </script>
 
-
-{{-- DATATABLES --}}
-<script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-            }
-        });
-    });
-</script>
-
-{{-- SWEETALERT2 --}}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-@endsection
+    {{-- SWEETALERT2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @endsection

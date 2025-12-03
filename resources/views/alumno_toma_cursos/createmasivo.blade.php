@@ -20,12 +20,14 @@
         </div>
 
 
-           <table class="table table-bordered" id="myTable">
+                <table class="table table-bordered" id="myTable">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre del curso</th>
-                    <th>Seleccionar curso</th>
+                    <th class="text-center">
+                        <input type="checkbox" id="selectAllCursos"> Seleccionar todo
+                    </th>
                 </tr>
             </thead>
 
@@ -33,12 +35,9 @@
                 @foreach($cursos as $curso)
                 <tr>
                     <td>{{ $curso->id }}</td>
-                    <td>{{ $curso->nombre_curso}}</td>
-
+                    <td>{{ $curso->nombre_curso }}</td>
                     <td class="text-center">
-                        <input type="checkbox"
-                            name="curso_ids[]"
-                            value="{{ $curso->id }}">
+                        <input type="checkbox" class="cursoCheckbox" name="curso_ids[]" value="{{ $curso->id }}">
                     </td>
                 </tr>
                 @endforeach
@@ -47,12 +46,15 @@
 
 
 
-         <table class="table table-bordered" id="myTable">
+
+        <table class="table table-bordered" id="myTableAlumnos">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Nombre del alumno</th>
-                    <th>Seleccionar alumno</th>
+                    <th class="text-center">
+                        <input type="checkbox" id="selectAllAlumnos"> Seleccionar todo
+                    </th>
                 </tr>
             </thead>
 
@@ -61,16 +63,14 @@
                 <tr>
                     <td>{{ $alumno->id }}</td>
                     <td>{{ $alumno->nombres }} {{ $alumno->apellidos }}</td>
-
                     <td class="text-center">
-                        <input type="checkbox"
-                            name="alumno_ids[]"
-                            value="{{ $alumno->id }}">
+                        <input type="checkbox" class="alumnoCheckbox" name="alumno_ids[]" value="{{ $alumno->id }}">
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
+
 
         <div class="mb-3">
             <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
@@ -98,6 +98,30 @@ $(document).ready(function () {
 });
 
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('selectAllCursos');
+    const checkboxes = document.querySelectorAll('.cursoCheckbox');
+
+    selectAll.addEventListener('change', function () {
+        checkboxes.forEach(cb => cb.checked = this.checked);
+    });
+});
+</script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const selectAllAlumnos = document.getElementById('selectAllAlumnos');
+    const alumnoCheckboxes = document.querySelectorAll('.alumnoCheckbox');
+
+    selectAllAlumnos.addEventListener('change', function () {
+        alumnoCheckboxes.forEach(cb => cb.checked = this.checked);
+    });
+});
+</script>
+
 
 
 @endsection

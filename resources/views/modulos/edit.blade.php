@@ -13,16 +13,26 @@
             <input type="text" name="nombre_modulo" id="nombre_modulo" class="form-control" value="{{ $modulo->nombre_modulo }}" required>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 w-50">
             <label for="curso_id" class="form-label">Curso Asociado</label>
-            <select name="curso_id" id="curso_id" class="form-select" required>
+            <select
+                name="curso_id"
+                id="curso_id"
+                class="form-control @error('curso_id') is-invalid @enderror"
+                required>
+
+                <option value="">Seleccione...</option>
+
                 @foreach ($cursos as $curso)
-                <option value="{{ $curso->id }}" {{ $modulo->curso_id == $curso->id ? 'selected' : '' }}>
-                    {{ $curso->nombre_curso }}
+                <option value="{{ $curso->id }}"
+                    {{ old('curso_id', $modulo->curso_id ?? '') == $curso->id ? 'selected' : '' }}>
+                    {{ $curso->nombre_curso ?? 'Curso sin nombre' }}
                 </option>
                 @endforeach
+
             </select>
         </div>
+
 
         <button type="submit" class="btn btn-dark px-4">💾 Actualizar</button>
         <a href="{{ route('modulos.index') }}" class="btn btn-secondary">Cancelar</a>

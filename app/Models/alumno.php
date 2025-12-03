@@ -51,20 +51,22 @@ class Alumno extends Model
 
 
     public function cursos()
-{
-    return $this->belongsToMany(Curso::class, 'alumno_toma_cursos', 'alumno_id', 'curso_id')
-                ->withPivot('fecha_inicio','fecha_fin','calificacion','aprobado')
-                ->withTimestamps();
-}
+    {
+        return $this->belongsToMany(Curso::class, 'alumno_toma_cursos', 'alumno_id', 'curso_id')
+            ->withPivot('fecha_inicio', 'fecha_fin', 'calificacion', 'aprobado')
+            ->withTimestamps();
+    }
 
 
-public function modulosCompletados()
+    public function modulosCompletados()
     {
         return $this->belongsToMany(modulo::class, 'alumno_completa_modulo', 'id_alumno', 'id_modulo')
             ->withPivot('fecha_finalizacion', 'estado')
             ->withTimestamps();
     }
 
-
-
+    public function grupo()
+    {
+        return $this->belongsTo(Grupo::class, 'grupo_id');
+    }
 }

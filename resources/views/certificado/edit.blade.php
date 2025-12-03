@@ -36,13 +36,16 @@
 
         <div class="mb-3">
             <label for="alumno_id" class="form-label">Alumno</label>
-            <select name="alumno_id" id="alumno_id" class="form-select" required>
+            <select name="alumno_id" id="alumno_id" class="form-control  @error('idalumno_id') is-invalid @enderror" required>
+                @error('alumno_id')
+                <div class="nvalid-feedback">
+                    {{ $message}}
+                    @enderror
+                </div>
+                <option value="">Seleccione un alumno</option>
                 @foreach($alumnos as $alumno)
-                <option value="{{ $alumno->id }}" {{ $certificado->alumno_id == $alumno->id ? 'selected' : '' }}>
-                    {{ $alumno->nombres }} {{ $alumno->apellidos }}
-                </option>
+                <option value="{{ $alumno->id }}">{{ $alumno->nombres }} {{ $alumno->apellidos }}</option>
                 @endforeach
-
             </select>
         </div>
 

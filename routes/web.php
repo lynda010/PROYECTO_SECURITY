@@ -99,8 +99,8 @@ Route::get('/grupos/create', [GrupoController::class, 'create'])->name('grupos.c
 Route::post('/grupos', [GrupoController::class, 'store'])->name('grupos.store');
 Route::get('/grupos/{id}/edit', [GrupoController::class, 'edit'])->name('grupos.edit');
 Route::put('/grupos/{id}', [GrupoController::class, 'update'])->name('grupos.update');
-Route::delete('/grupos/{id}', [GrupoController::class, 'destroy'])->name('grupos.destroy');
-
+Route::post('/grupos/{id}', [GrupoController::class, 'destroy'])->name('grupos.destroy');
+Route::get('/grupos/{id}/detalle', [GrupoController::class, 'detalle'])->name('grupos.detalle');
 
 
 //ruta ver pdf

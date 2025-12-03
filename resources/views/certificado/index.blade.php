@@ -45,17 +45,18 @@
             <td>{{ $certificado->alumno->nombres }} {{ $certificado->alumno->apellidos }}</td>
             <td>
                 <a href="{{ route('certificados.edit', $certificado->codigo_interno) }}" class="btn btn-warning btn-sm">Editar</a>
-                <form action="{{ route('certificados.destroy', $certificado->codigo_interno) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                </form>
+                <form action="{{ route('certificados.destroy', $certificado->codigo_interno) }}" method="POST"
+                        style="display:inline-block;" onsubmit="confirmarEliminacion(event)">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
-    Volver
+<a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+    <i class="fas fa-arrow-left fa-lg"></i> Volver
 </a>
 </div>
 @if(session('success'))

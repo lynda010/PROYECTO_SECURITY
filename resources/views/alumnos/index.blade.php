@@ -72,13 +72,12 @@
                             <i class="fas fa-pencil-alt"></i> Editar
                         </a>
 
-                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-sm"
-                                onsubmit="confirmarEliminacion(event)">
-                                <i class="fas fa-trash-alt"></i> Eliminar
-                            </button>
-                        </form>
+                        <form action="{{ route('alumnos.destroy', $alumno->id) }}" method="POST"
+                        style="display:inline-block;" onsubmit="confirmarEliminacion(event)">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
 
                     </td>
 
@@ -86,10 +85,9 @@
                 @endforeach
             </tbody>
         </table>
-        <a data-bs-toggle="tooltip" title="Volver al menú principal" href="{{ route('alumnos.index') }}"
-            class="btn btn-outline-secondary mt-2 mb-1 ml-2">
-            <i class="fas fa-arrow-left fa-lg"></i> Volver
-        </a>
+        <a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+        <i class="fas fa-arrow-left fa-lg"></i> Volver
+    </a>
     </div>
     @if(session('success'))
 <script>

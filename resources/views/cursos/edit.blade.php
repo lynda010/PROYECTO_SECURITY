@@ -27,16 +27,25 @@
             <input type="number" name="duracion_dias_presencial" id="duracion_dias_presencial" class="form-control" value="{{ $curso->duracion_dias_presencial }}" required>
         </div>
 
-        <div class="mb-3">
+
+        <div class="mb-3 w-50">
             <label for="tipo_curso_id" class="form-label">Tipo de Curso</label>
-            <select name="tipo_curso_id" id="tipo_curso_id" class="form-select" required>
-                @foreach ($tiposCurso as $tipo)
-                    <option value="{{ $tipo->id }}" {{ $curso->tipo_curso_id == $tipo->id ? 'selected' : '' }}>
-                        {{ $tipo->nombre_tipo }}
-                    </option>
+            <select
+                name="tipo_curso_id"
+                id="tipo_curso_id"
+                class="form-control @error('tipo_curso_id') is-invalid @enderror"
+                required>
+                <option value="">Seleccione...</option>
+                @foreach($tiposCurso as $item)
+                <option value="{{ $item->id }}">{{ $item->nombre_tipo }}</option>
                 @endforeach
             </select>
+
+            @error('tipo_curso_id')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
+
 
         <button type="submit" class="btn btn-dark px-4">💾 Actualizar</button>
         <a href="{{ route('cursos.index') }}" class="btn btn-secondary">Cancelar</a>

@@ -19,10 +19,6 @@
 
 
 
-@if(session('success'))
-<div class="alert alert-success">{{ session('success') }}</div>
-@endif
-
 <div>
     <a href="{{ route('pagos.pdf') }}" class="btn btn-primary">
         <i class="fas fa-file-pdf"></i> Descargar PDF General
@@ -63,31 +59,60 @@
                 <a href="{{ route('pagos.edit', $pago->id) }}" class="btn btn-warning btn-sm">Editar</a>
 
 
-                <form action="{{ route('pagos.destroy', $pago->id) }}" method="POST" style="display:inline-block;">
+                <form id="formEliminar{{ $pago->id }}" action="{{ route('pagos.destroy', $pago->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmarEliminacion({{ $pago->id }})">
+                        Eliminar
+                    </button>
                 </form>
+
             </td>
         </tr>
         @endforeach
     </tbody>
 
 </table>
-<a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
-    Volver
+<a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+    <i class="fas fa-arrow-left fa-lg"></i> Volver
 </a>
 
 </a>
 </div>
-@endsection
-@section('js')
+@if(session('success'))
 <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable({
-            language: {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session("success") }}',
+            confirmButtonText: 'Aceptar',
+            timer: 3000
         });
     });
 </script>
+@endif
+
+@endsection
+@section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: "¿Estás seguro?",
+            text: "¡No podrás revertir esto!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('formEliminar' + id).submit();
+            }
+        });
+    }
+</script>
+
 @endsection

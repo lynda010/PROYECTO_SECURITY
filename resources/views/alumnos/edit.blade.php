@@ -69,16 +69,29 @@
             </div>
 
             <div class="col-md-6 mb-3">
-                <label>Situación Militar Definida</label>
-                <select name="situacion_militar_definida" class="form-select" required>
-                    <option value="1" {{ $alumno->situacion_militar_definida ? 'selected' : '' }}>Sí</option>
-                    <option value="0" {{ !$alumno->situacion_militar_definida ? 'selected' : '' }}>No</option>
+                <label for="situacion_militar_definida" class="form-label">Situación Militar Definida</label>
+                <select
+                    name="situacion_militar_definida"
+                    id="situacion_militar_definida"
+                    class="form-select @error('situacion_militar_definida') is-invalid @enderror"
+                    required>
+
+                    <option value="">Seleccione...</option>
+
+                    <option value="1" {{ old('situacion_militar_definida', $alumno->situacion_militar_definida ?? '') == 1 ? 'selected' : '' }}>
+                        Sí
+                    </option>
+
+                    <option value="0" {{ old('situacion_militar_definida', $alumno->situacion_militar_definida ?? '') == 0 ? 'selected' : '' }}>
+                        No
+                    </option>
+
                 </select>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-dark px-4">💾 Actualizar</button>
-        <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Cancelar</a>
+
+            <button type="submit" class="btn btn-dark px-4">💾 Actualizar</button>
+            <a href="{{ route('alumnos.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

@@ -44,19 +44,20 @@
                         Editar
                     </a>
 
-                    <form action="{{ route('tipo_cursos.destroy', $item->id) }}" method="POST" style="display:inline-block;">
+                    <form action="{{ route('tipo_cursos.destroy', $item->id) }}" method="POST"
+                        style="display:inline-block;" onsubmit="confirmarEliminacion(event)">
                         @csrf
-                        <button type="submit" class="btn btn-danger btn-sm fw-bold">Eliminar</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                     </form>
-                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
 
-    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2"><i class="fas fa-arrow-left fa-lg"></i>
-        Volver
+    <a href="{{ url('/') }}" class="btn btn-outline-secondary mt-2 mb-1 ml-2">
+        <i class="fas fa-arrow-left fa-lg"></i> Volver
     </a>
+
 
 </div>
 @if(session('success'))
@@ -72,6 +73,18 @@
     });
 </script>
 @endif
+@if(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: '¡Atención!',
+                text: "{{ session('error') }}",
+                confirmButtonText: 'Aceptar',
+            });
+        });
+    </script>
+    @endif
 
 @endsection
 
